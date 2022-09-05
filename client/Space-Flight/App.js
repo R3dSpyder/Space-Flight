@@ -1,13 +1,16 @@
 import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import Home from "./components/Home";
+import LoadingScreen from "./components/LoadingScreen";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  return isLoading ? <LoadingScreen /> : <Home />;
 }
 
 const styles = StyleSheet.create({
