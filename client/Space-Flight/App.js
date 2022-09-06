@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
@@ -10,17 +10,39 @@ import StartGame from "./components/StartGame";
 import Login from "./components/Login";
 import TopMenu from "./components/TopMenu";
 import LeaderBoard from "./components/LeaderBoard";
+import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
+
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [appIsReady, setAppIsReady] = useState(false);
+
   useEffect(() => {
-    setIsLoading(false);
+    async function prepare() {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      } catch (error) {
+        console.warn(error);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+    prepare();
   }, []);
 
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
+  return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
