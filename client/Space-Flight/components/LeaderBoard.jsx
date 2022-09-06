@@ -1,29 +1,23 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import getLeaderBoard from "../api";
 
 export default function LeaderBoard() {
   const [userData, setUserData] = useState([]);
   const [signedInUser, setSignedInUser] = useState({});
 
   useEffect(() => {
-    setUserData(
-      [
-        { userName: "Sam", highScore: 50 },
-        { userName: "Philomena", highScore: 120 },
-        { userName: "Penny", highScore: 51 },
-        { userName: "Jenny", highScore: 121 },
-        { userName: "Phill", highScore: 52 },
-        { userName: "Karen", highScore: 122 },
-        { userName: "James", highScore: 53 },
-        { userName: "Darren", highScore: 123 },
-        { userName: "George", highScore: 54 },
-        { userName: "Phoebe", highScore: 124 },
-      ]
-        .sort((user1, user2) => user1.highScore - user2.highScore)
-        .reverse()
-    );
+    getLeaderBoard().then((data) => {
+      const keys = Object.values(data);
+      setUserData(keys);
+    });
+
+    // .sort((user1, user2) => user1.highScore - user2.highScore)
+    // .reverse()
+
     setSignedInUser({ userName: "Penny", highScore: 51 });
   }, []);
+  console.log(userData, "user data");
 
   return (
     <View>
@@ -47,8 +41,8 @@ export default function LeaderBoard() {
               ]}
             >
               <Text>{index}</Text>
-              <Text>{user.userName}</Text>
-              <Text>{user.highScore}</Text>
+              <Text>{user.username}</Text>
+              <Text>{user.score}</Text>
             </View>
           );
         })}
@@ -60,7 +54,7 @@ export default function LeaderBoard() {
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center", alignItems: "center" },
   header: {
-    height: "20vh",
+    height: 100,
     backgroundColor: "orange",
     display: "flex",
     justifyContent: "center",
@@ -77,7 +71,7 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "space-around",
     flexDirection: "row",
-    padding: "10px",
+    padding: 10,
   },
   oddRowColor: {
     backgroundColor: "lightgray",
