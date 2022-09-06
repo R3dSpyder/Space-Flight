@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, push } from "firebase/database";
+import { getDatabase, ref, set, push, onValue } from "firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -34,8 +34,6 @@ function pushUserData(username, score) {
     score: score,
   });
 }
-
-export default pushUserData;
 
 pushUserData("Carl", 2800);
 pushUserData("Carl", 2000);
