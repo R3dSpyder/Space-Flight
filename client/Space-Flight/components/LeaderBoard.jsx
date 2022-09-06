@@ -28,6 +28,7 @@ export default function LeaderBoard() {
   return (
     <View>
       <View style={styles.header}>
+<<<<<<< HEAD
         <View>Leaderboard</View>
         <View style={styles.userScore}>
           <View style={styles.userScoreItems}>4th</View>
@@ -35,18 +36,38 @@ export default function LeaderBoard() {
           <View style={styles.userScoreItems}>{signedInUser.highScore}</View>
         </View>
       </View>
+=======
+        <Text>Leaderboard</Text>
+        <View style={styles.userScore}>
+          <Text style={styles.userScoreItems}>4th</Text>
+          <Text style={styles.userScoreItems}>icon</Text>
+          <Text style={styles.userScoreItems}>{signedInUser.highScore}</Text>
+        </View>
+      </View>
+
+>>>>>>> 888118f1e634e47126c8846ae8ffaa04e3d5c171
       <View>
         {userData.map((user, index) => {
           return (
             <View
+<<<<<<< HEAD
+=======
+              key={index}
+>>>>>>> 888118f1e634e47126c8846ae8ffaa04e3d5c171
               style={[
                 styles.allUsersScore,
                 index % 2 === 0 ? styles.evenRowColor : styles.oddRowColor,
               ]}
             >
+<<<<<<< HEAD
               <View>{index}</View>
               <View>{user.userName}</View>
               <View>{user.highScore}</View>
+=======
+              <Text>{index}</Text>
+              <Text>{user.userName}</Text>
+              <Text>{user.highScore}</Text>
+>>>>>>> 888118f1e634e47126c8846ae8ffaa04e3d5c171
             </View>
           );
         })}
@@ -82,10 +103,14 @@ const styles = StyleSheet.create({
   },
   evenRowColor: {
     backgroundColor: "white",
+<<<<<<< HEAD
   },
 
   // userScoreItems: {
   //   padding: "0 30px",
   //   flex: "2",
   // },
+=======
+  }, // userScoreItems: { //   padding: "0 30px", //   flex: "2", // },
+>>>>>>> 888118f1e634e47126c8846ae8ffaa04e3d5c171
 });

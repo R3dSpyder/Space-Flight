@@ -7,7 +7,7 @@ export default function TopMenu({ navigation }) {
         title="LeaderBoard"
         onPress={() => navigation.navigate("LeaderBoard")}
       />
-      <Text>extras</Text>
+      {/* <Text>extras</Text>  */}
     </View>
   );
 }
