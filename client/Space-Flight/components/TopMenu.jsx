@@ -1,12 +1,12 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import LeaderBoard from "./LeaderBoard";
+import { View, Text, Button } from "react-native";
 
-export default function TopMenu() {
+export default function TopMenu({ navigation }) {
   return (
     <View>
-      <TouchableOpacity>
-        <LeaderBoard />
-      </TouchableOpacity>
+      <Button
+        title="LeaderBoard"
+        onPress={() => navigation.navigate("LeaderBoard")}
+      />
       <Text>extras</Text>
     </View>
   );

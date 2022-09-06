@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 export default function LeaderBoard() {
   const [userData, setUserData] = useState([]);
+  const [signedInUser, setSignedInUser] = useState({});
 
   useEffect(() => {
     setUserData(
@@ -21,12 +22,70 @@ export default function LeaderBoard() {
         .sort((user1, user2) => user1.highScore - user2.highScore)
         .reverse()
     );
+    setSignedInUser({ userName: "Penny", highScore: 51 });
   }, []);
 
   return (
     <View>
-      {userData && console.log(userData)}
-      {/* <Text>this how well you did</Text> */}
+      <View style={styles.header}>
+        <View>Leaderboard</View>
+        <View style={styles.userScore}>
+          <View style={styles.userScoreItems}>4th</View>
+          <View style={styles.userScoreItems}>icon</View>
+          <View style={styles.userScoreItems}>{signedInUser.highScore}</View>
+        </View>
+      </View>
+      <View>
+        {userData.map((user, index) => {
+          return (
+            <View
+              style={[
+                styles.allUsersScore,
+                index % 2 === 0 ? styles.evenRowColor : styles.oddRowColor,
+              ]}
+            >
+              <View>{index}</View>
+              <View>{user.userName}</View>
+              <View>{user.highScore}</View>
+            </View>
+          );
+        })}
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: "center", alignItems: "center" },
+  header: {
+    height: "20vh",
+    backgroundColor: "orange",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  userScore: {
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-around",
+  },
+  allUsersScore: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    padding: "10px",
+  },
+  oddRowColor: {
+    backgroundColor: "lightgray",
+  },
+  evenRowColor: {
+    backgroundColor: "white",
+  },
+
+  // userScoreItems: {
+  //   padding: "0 30px",
+  //   flex: "2",
+  // },
+});
