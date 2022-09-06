@@ -1,6 +1,13 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Button,
+} from "react-native";
 
-export default function Home() {
+export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>SPACE DODGE!</Text>
@@ -8,6 +15,12 @@ export default function Home() {
       <TouchableOpacity>
         <Text style={styles.start}>TAKE OFF!</Text>
       </TouchableOpacity>
+      <Button
+        title="StartGame"
+        onPress={() => navigation.navigate("StartGame")}
+      />
+      <Button title="TopMenu" onPress={() => navigation.navigate("TopMenu")} />
+      <Button title="Login" onPress={() => navigation.navigate("Login")} />
     </View>
   );
 }
