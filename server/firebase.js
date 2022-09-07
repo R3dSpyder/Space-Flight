@@ -1,6 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, push, onValue } from "firebase/database";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,6 +25,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 const reference = ref(db, "scores/");
+const auth = getAuth(app);
 
 function writeUserData(username, score) {
   set(reference, {
@@ -40,3 +46,15 @@ pushUserData("Carl", 2000);
 pushUserData("Carl", 1800);
 pushUserData("Carl", 1500);
 pushUserData("Carl", 1100);
+
+// Sign Up Page
+
+export const signUpUser = (email, password) => {
+  return createUserWithEmailAndPassword(auth, email, password);
+};
+
+// Login Page
+
+export const signInUser = (email, password) => {
+  return signInWithEmailAndPassword(auth, email, password);
+};

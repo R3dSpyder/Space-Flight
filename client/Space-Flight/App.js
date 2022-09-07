@@ -10,6 +10,7 @@ import StartGame from "./components/StartGame";
 import Login from "./components/Login";
 import TopMenu from "./components/TopMenu";
 import LeaderBoard from "./components/LeaderBoard";
+import SignUp from "./components/SignUp";
 import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
@@ -25,7 +26,7 @@ export default function App() {
         //make api calls, pre-load fonts here
 
         //delay for 2 seconds to simulate a slow loading experience
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (error) {
         console.warn(error);
       } finally {
@@ -54,6 +55,7 @@ export default function App() {
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="StartGame" component={StartGame} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
           <Stack.Screen name="TopMenu" component={TopMenu} />
         </Stack.Navigator>
