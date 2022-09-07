@@ -13,11 +13,11 @@ export default function Home({ navigation }) {
       <Text style={styles.title}>SPACE DODGE!</Text>
       <Image source={require("../assets/spaceship.png")}></Image>
       <TouchableOpacity>
-        <Text style={styles.start}>TAKE OFF!</Text>
+        {/* <Text style={styles.start}>TAKE OFF!</Text> */}
       </TouchableOpacity>
       <Button
-        title="StartGame"
-        onPress={() => navigation.navigate("StartGame")}
+        title="Start Game"
+        onPress={() => navigation.navigate("Space Dodge")}
       />
       <Button title="TopMenu" onPress={() => navigation.navigate("TopMenu")} />
       <Button title="Login" onPress={() => navigation.navigate("Login")} />

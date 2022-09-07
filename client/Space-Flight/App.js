@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
+import GameEnvironment from "./components/GameEnvironment";
 import LoadingScreen from "./components/LoadingScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -24,7 +25,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="StartGame" component={StartGame} />
+        <Stack.Screen name="Space Dodge" component={GameEnvironment} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="TopMenu" component={TopMenu} />
