@@ -35,23 +35,6 @@ function pushUserData(username, score) {
   });
 }
 
-// function read() {
-//   get(child(reference))
-//     .then((snapshot) => {
-//       if (snapshot.exists()) {
-//         console.log(snapshot.val());
-//         return snapshot.val();
-//       } else {
-//         console.log("No data available");
-//       }
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-
-// export default read;
-
 pushUserData("Carl", 2800);
 pushUserData("Carl", 2000);
 pushUserData("Carl", 1800);
