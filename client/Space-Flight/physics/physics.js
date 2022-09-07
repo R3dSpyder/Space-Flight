@@ -14,19 +14,25 @@ export const Physics = (entities, { touches, time, dispatch }) => {
   //         y: 40,
   //       });
   //     });
-
-  if (touches.length) {
-    console.log(touches[0].type);
-    if (touches[0].type === "move") {
-      Matter.Body.translate(entities.Ground.body, {
-        x: 0,
-        y: 4,
-      });
-      if (rocket.bounds.max.x !== windowWidth) {
-        Matter.Body.setVelocity(rocket, {
-          x: touches[0].delta.pageX,
-          y: touches[0].delta.pageY,
+  for (let i = 1; i <= 3; i++) {
+    if (touches.length) {
+      console.log(touches[0].type);
+      if (touches[0].type === "move") {
+        const cloud = entities[`Cloud${i}`].body;
+        Matter.Body.translate(cloud, {
+          x: 0,
+          y: 4,
         });
+        Matter.Body.translate(entities.Ground.body, {
+          x: 0,
+          y: 4,
+        });
+        if (rocket.bounds.max.x !== windowWidth) {
+          Matter.Body.setVelocity(rocket, {
+            x: touches[0].delta.pageX,
+            y: touches[0].delta.pageY,
+          });
+        }
       }
     }
   }
