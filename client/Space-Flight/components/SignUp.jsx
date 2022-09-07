@@ -24,6 +24,8 @@ export default function SignUp() {
           setError("Please enter a valid email and password!");
         } else if (errorCode === "auth/weak-password") {
           setError("Password should be at least 6 characters long!");
+        } else if (errorCode === "auth/email-already-in-use") {
+          setError("Email already in use!");
         } else setError(errorMessage);
       });
   };
