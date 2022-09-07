@@ -1,21 +1,19 @@
 import { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { signInUser } from "../../../server/firebase";
+import { signUpUser } from "../../../server/firebase.js";
 
-export default function Login() {
+export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [user, setUser] = useState("");
 
-  const signIn = () => {
-    signInUser(email, password);
-
-    signInUser(email, password)
+  //   console.log(auth, createUserWithEmailAndPassword);
+  const signingUpUser = () => {
+    signUpUser(email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        setUser(user);
       })
+
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -24,15 +22,15 @@ export default function Login() {
           setError("Please enter an email!");
         } else if (errorCode === "auth/internal-error") {
           setError("Please enter a valid email and password!");
-        } else if (errorCode === "auth/wrong-password") {
-          setError("Please check your email and password!");
+        } else if (errorCode === "auth/weak-password") {
+          setError("Password should be at least 6 characters long!");
         } else setError(errorMessage);
       });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Please Log In Here!</Text>
+      <Text style={styles.title}>Please Sign Up Here!</Text>
       <TextInput
         style={styles.input}
         onChangeText={setEmail}
@@ -48,7 +46,12 @@ export default function Login() {
         keyboardType="text"
       />
       <br></br>
-      <Button style={styles.button} onPress={() => signIn()} title="Log In" />
+      <Button
+        style={styles.button}
+        onPress={() => signingUpUser()}
+        title="Sign Up"
+      />
+
       {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );

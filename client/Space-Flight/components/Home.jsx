@@ -16,11 +16,12 @@ export default function Home({ navigation }) {
         <Text style={styles.start}>TAKE OFF!</Text>
       </TouchableOpacity>
       <Button
-        title="StartGame"
+        title="Start Game"
         onPress={() => navigation.navigate("StartGame")}
       />
-      <Button title="TopMenu" onPress={() => navigation.navigate("TopMenu")} />
-      <Button title="Login" onPress={() => navigation.navigate("Login")} />
+      <Button title="Top Menu" onPress={() => navigation.navigate("TopMenu")} />
+      <Button title="Log in" onPress={() => navigation.navigate("Login")} />
+      <Button title="Sign Up" onPress={() => navigation.navigate("SignUp")} />
     </View>
   );
 }

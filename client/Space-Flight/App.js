@@ -10,6 +10,7 @@ import StartGame from "./components/StartGame";
 import Login from "./components/Login";
 import TopMenu from "./components/TopMenu";
 import LeaderBoard from "./components/LeaderBoard";
+import SignUp from "./components/SignUp";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="StartGame" component={StartGame} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="TopMenu" component={TopMenu} />
       </Stack.Navigator>
