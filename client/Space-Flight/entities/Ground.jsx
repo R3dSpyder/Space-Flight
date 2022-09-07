@@ -1,8 +1,8 @@
 import Matter from "matter-js";
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Text } from "react-native";
 
-const Rocket = (props) => {
+const Floor = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -11,51 +11,45 @@ const Rocket = (props) => {
 
   const color = props.color;
 
-  if (props.body.position.y < 0) {
-    // console.log("yeeee");
-    // use this for something like this (() => navigation.navigate("Login"))()
-  }
-
   return (
     <View
       style={{
+        backgroundColor: color,
         position: "absolute",
-        wireframes: false,
-        background: "transparent",
-        wireframeBackground: "transparent",
         left: xBody,
         top: yBody,
         width: widthBody,
         height: heightBody,
+        // justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      <Image
+      <Text
         style={{
-          width: widthBody,
-          height: heightBody,
-          backgroundColor: "transparent",
+          color: "white",
+          fontSize: 50,
         }}
-        resizeMode="stretch"
-        source={require("../assets/rocket.png")}
-      ></Image>
+      >
+        Tap to launch
+      </Text>
     </View>
   );
 };
 
 export default (world, color, pos, size) => {
-  const initialRocket = Matter.Bodies.rectangle(
+  const initialFloor = Matter.Bodies.rectangle(
     pos.x,
     pos.y,
     size.width,
     size.height,
-    { label: "Rocket" }
+    { label: "Floor", isStatic: false }
   );
-  Matter.World.add(world, initialRocket);
+  Matter.World.add(world, initialFloor);
 
   return {
-    body: initialRocket,
+    body: initialFloor,
     color,
     pos,
-    renderer: <Rocket />,
+    renderer: <Floor />,
   };
 };

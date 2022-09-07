@@ -29,7 +29,5 @@
     "@babel/core": "^7.12.9"
   },
   "private": true,
-
-"type": "module"
-
+  "type": "module"
 }
