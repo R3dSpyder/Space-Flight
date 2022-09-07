@@ -14,7 +14,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync(); //splashscreen visible until hideSync is called
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -22,10 +22,14 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
+        //make api calls, pre-load fonts here
+
+        //delay for 2 seconds to simulate a slow loading experience
         await new Promise(resolve => setTimeout(resolve, 2000));
       } catch (error) {
         console.warn(error);
       } finally {
+        //tells app to render
         setAppIsReady(true);
       }
     }
@@ -34,7 +38,7 @@ export default function App() {
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
-      await SplashScreen.hideAsync();
+      await SplashScreen.hideAsync(); //splash screen hidden
     }
   }, [appIsReady]);
 
@@ -43,22 +47,25 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="StartGame" component={StartGame} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
-        <Stack.Screen name="TopMenu" component={TopMenu} />
-      </Stack.Navigator>
-      {/* <>
-        <NavBar />
-        <View style={styles.container}>
-          <Home />
-          <StatusBar style="auto" hidden={true} />
-        </View>
-      </> */}
-    </NavigationContainer>
+    <>
+      <View onLayout={onLayoutRootView} />
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="StartGame" component={StartGame} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+          <Stack.Screen name="TopMenu" component={TopMenu} />
+        </Stack.Navigator>
+        {/* <>
+      <NavBar />
+      <View style={styles.container}>
+      <Home />
+      <StatusBar style="auto" hidden={true} />
+      </View>
+    </> */}
+      </NavigationContainer>
+    </>
   );
 }
 
