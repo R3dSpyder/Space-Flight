@@ -9,8 +9,6 @@ const Cloud = props => {
   const xBody = props.body.position.x - widthBody / 2;
   const yBody = props.body.position.y - heightBody / 2;
 
-  const color = props.color;
-
   if (props.body.position.y < 0) {
     // console.log("yeeee");
     // use this for something like this (() => navigation.navigate("Login"))()
@@ -45,6 +43,7 @@ const Cloud = props => {
 export default (world, pos, size) => {
   const cloud = Matter.Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
     label: "Cloud",
+    inertia: Infinity,
   });
   Matter.World.add(world, cloud);
 
