@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Image } from "react-native";
 
-const Rocket = props => {
+const Health = props => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -36,18 +36,23 @@ const Rocket = props => {
 };
 
 export default (world, pos, size) => {
-  const initialRocket = Matter.Bodies.rectangle(
+  const health = Matter.Bodies.rectangle(
     pos.x,
     pos.y,
     size.width,
     size.height,
-    { label: "Rocket", inertia: Infinity }
+    { label: "Health", inertia: Infinity }
   );
-  Matter.World.add(world, initialRocket);
+  health.collisionFilter = {
+    group: -1,
+    category: 2,
+    mask: 0,
+  };
+  Matter.World.add(world, health);
 
   return {
-    body: initialRocket,
+    body: health,
     pos,
-    renderer: <Rocket />,
+    renderer: <Health />,
   };
 };
