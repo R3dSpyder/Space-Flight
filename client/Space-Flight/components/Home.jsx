@@ -8,8 +8,9 @@ import {
 } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import { Physics } from "../physics/physics.js";
-import entities from "../entities/index.jsx";
+import entities from "../entities/index.js";
 import { useEffect, useState } from "react";
+import startGamePhysics from "../physics/startGamePhysics.js";
 
 export default function Home({ navigation }) {
   const [running, setRunning] = useState(true);
@@ -36,7 +37,7 @@ export default function Home({ navigation }) {
       <Button title="TopMenu" onPress={() => navigation.navigate("TopMenu")} />
       <Button title="Login" onPress={() => navigation.navigate("Login")} /> */}
       <GameEngine
-        systems={[Physics]}
+        systems={[!startGame ? Physics : startGamePhysics]}
         entities={entities()}
         running={running}
         onEvent={(e) => {

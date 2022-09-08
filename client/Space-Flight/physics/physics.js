@@ -4,31 +4,30 @@ import { Dimensions } from "react-native";
 export const Physics = (entities, { touches, time, dispatch }) => {
   let engine = entities.physics.engine;
   const rocket = entities.Rocket.body;
+  const start = entities.Start.body;
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
-  //   touches
-  //     .filter((t) => t.type === "press")
-  //     .forEach((t) => {
-  //       Matter.Body.translate(entities.Ground.body, {
-  //         x: 0,
-  //         y: 40,
-  //       });
-  //     });
-
-  if (touches.length) {
-    console.log(touches[0].type);
-    if (touches[0].type === "move") {
-      Matter.Body.translate(entities.Ground.body, {
-        x: 0,
-        y: 4,
+  touches
+    .filter((t) => t.type === "move")
+    .forEach((t) => {
+      Matter.Body.setVelocity(rocket, {
+        x: t.delta.pageX,
+        y: t.delta.pageY,
       });
-      if (rocket.bounds.max.x !== windowWidth) {
-        Matter.Body.setVelocity(rocket, {
-          x: touches[0].delta.pageX,
-          y: touches[0].delta.pageY,
-        });
-      }
-    }
+    });
+  if (Matter.Collision.collides(rocket, start)) {
+    dispatch({ type: "start game" });
+    // for (let i = 1; i <= 3; i++) {
+    //   const cloud = entities[`Cloud${i}`].body;
+    //   Matter.Body.translate(cloud, {
+    //     x: 0,
+    //     y: 4,
+    //   });
+    //   Matter.Body.translate(entities.Ground.body, {
+    //     x: 0,
+    //     y: 4,
+    //   });
+    // }
   }
 
   if (entities.Rocket.body.position.y < 0) {

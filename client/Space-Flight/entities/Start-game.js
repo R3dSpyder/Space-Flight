@@ -1,8 +1,8 @@
 import Matter from "matter-js";
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
-const Rocket = (props) => {
+const Start = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -22,32 +22,23 @@ const Rocket = (props) => {
         height: heightBody,
       }}
     >
-      <Image
-        style={{
-          width: widthBody,
-          height: heightBody,
-          backgroundColor: "transparent",
-        }}
-        resizeMode="stretch"
-        source={require("../assets/rocket.png")}
-      ></Image>
+      <Text style={{ color: "white", fontSize: 30, fontFamily: "Courier New" }}>
+        START
+      </Text>
     </View>
   );
 };
 
 export default (world, pos, size) => {
-  const initialRocket = Matter.Bodies.rectangle(
-    pos.x,
-    pos.y,
-    size.width,
-    size.height,
-    { label: "Rocket", inertia: Infinity }
-  );
-  Matter.World.add(world, initialRocket);
+  const start = Matter.Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
+    label: "Start",
+    inertia: Infinity,
+  });
+  Matter.World.add(world, start);
 
   return {
-    body: initialRocket,
+    body: start,
     pos,
-    renderer: <Rocket />,
+    renderer: <Start />,
   };
 };
