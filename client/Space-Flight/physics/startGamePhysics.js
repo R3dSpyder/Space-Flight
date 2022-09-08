@@ -1,9 +1,11 @@
 import Matter from "matter-js";
 import { Dimensions } from "react-native";
 import axisGenerator from "../Utils/axisGenerator";
+import incrementLives from "../Utils/incrementingLives";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
+let life = 1;
 
 const startGamePhysics = (entities, { touches, time, dispatch }) => {
   const engine = entities.physics.engine;
@@ -29,7 +31,12 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
       });
     }
     if (Matter.Collision.collides(asteroid, rocket)) {
-      rocket.render.opacity = 0;
+      for (let i = 1; i <= 3; i++) {
+        Matter.Body.translate(entities[`Health${life}`].body, {
+          x: 4,
+          y: 0,
+        });
+      }
     }
   }
 

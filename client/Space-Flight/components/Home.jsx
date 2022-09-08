@@ -15,6 +15,7 @@ import startGamePhysics from "../physics/startGamePhysics.js";
 export default function Home({ navigation }) {
   const [running, setRunning] = useState(true);
   const [startGame, setStartGame] = useState(false);
+  const [lives, setLives] = useState(3);
 
   console.log(startGame);
 
@@ -40,7 +41,7 @@ export default function Home({ navigation }) {
         systems={[!startGame ? Physics : startGamePhysics]}
         entities={entities()}
         running={running}
-        onEvent={(e) => {
+        onEvent={e => {
           e.type === "start game" ? setStartGame(true) : null;
         }}
         style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
