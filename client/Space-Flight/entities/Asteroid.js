@@ -1,8 +1,8 @@
 import Matter from "matter-js";
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Image } from "react-native";
 
-const Start = props => {
+const Asteroid = props => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -22,21 +22,32 @@ const Start = props => {
         height: heightBody,
       }}
     >
-      <Text style={{ color: "white", fontSize: 30 }}>START</Text>
+      <Image
+        style={{
+          width: widthBody,
+          height: heightBody,
+          backgroundColor: "transparent",
+        }}
+        resizeMode="stretch"
+        source={require("../assets/asteroid.png")}
+      ></Image>
     </View>
   );
 };
 
 export default (world, pos, size) => {
-  const start = Matter.Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
-    label: "Start",
-    inertia: Infinity,
-  });
-  Matter.World.add(world, start);
+  const initialAsteroid = Matter.Bodies.rectangle(
+    pos.x,
+    pos.y,
+    size.width,
+    size.height,
+    { label: "Asteroid", inertia: Infinity }
+  );
+  Matter.World.add(world, initialAsteroid);
 
   return {
-    body: start,
+    body: initialAsteroid,
     pos,
-    renderer: <Start />,
+    renderer: <Asteroid />,
   };
 };
