@@ -5,13 +5,14 @@ export const Physics = (entities, { touches, time, dispatch }) => {
   let engine = entities.physics.engine;
   const rocket = entities.Rocket.body;
   const start = entities.Start.body;
+  const leaderboard = entities.Leaderboard.body;
   const asteroid = entities.Asteroid1.body;
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
 
   touches
-    .filter(t => t.type === "move")
-    .forEach(t => {
+    .filter((t) => t.type === "move")
+    .forEach((t) => {
       Matter.Body.setVelocity(rocket, {
         x: t.delta.pageX,
         y: t.delta.pageY,
@@ -19,19 +20,12 @@ export const Physics = (entities, { touches, time, dispatch }) => {
     });
   if (Matter.Collision.collides(rocket, start)) {
     World.remove(engine.world, start);
-    dispatch({ type: "start game" });
+    dispatch({ type: "start_game" });
+  }
 
-    // for (let i = 1; i <= 3; i++) {
-    //   const cloud = entities[`Cloud${i}`].body;
-    //   Matter.Body.translate(cloud, {
-    //     x: 0,
-    //     y: 4,
-    //   });
-    //   Matter.Body.translate(entities.Ground.body, {
-    //     x: 0,
-    //     y: 4,
-    //   });
-    // }
+  if (Matter.Collision.collides(rocket, leaderboard)) {
+    World.remove(engine.world, start);
+    dispatch({ type: "leaderboard" });
   }
 
   Matter.Body.rotate(asteroid, 0.25);

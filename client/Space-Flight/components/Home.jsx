@@ -44,28 +44,16 @@ export default function Home({ navigation }) {
         entities={entities()}
         running={running}
         onEvent={(e) => {
-          e.type === "start game"
+          e.type === "start_game"
             ? setStartGame(true)
             : e.type === "game_over"
             ? setRunning(false) && setGameEngine(gameEngine.stop)
+            : e.type === "leaderboard"
+            ? navigation.navigate("LeaderBoard")
             : running;
         }}
         style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
       ></GameEngine>
-      {/* {!running ? (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <TouchableOpacity
-            onPress={() => {
-              setRunning(true);
-              gameEngine.swap(entities());
-            }}
-          >
-            <Text style={{ color: "white" }}>Restart</Text>
-          </TouchableOpacity>
-        </View>
-      ) : null} */}
     </View>
   );
 }

@@ -17,7 +17,7 @@ export default function LeaderBoard() {
 
     setSignedInUser({ userName: "Penny", highScore: 51 });
   }, []);
-  console.log(userData, "user data");
+  // console.log(userData, "user data");
 
   return (
     <View>
