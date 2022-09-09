@@ -12,8 +12,8 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
   const start = entities.Start.body;
 
   touches
-    .filter(t => t.type === "move")
-    .forEach(t => {
+    .filter((t) => t.type === "move")
+    .forEach((t) => {
       Matter.Body.setVelocity(rocket, {
         x: t.delta.pageX,
         y: t.delta.pageY,
@@ -32,14 +32,15 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
       });
     }
 
+    if (Matter.Collision.collides(rocket, asteroid)) {
+      dispatch({ type: "game_over" });
+    }
+
     //on collision with the rocket, 1 health rocket disappears
 
-    if (
-      Matter.Events.on(engine, "collisionStart", event => {
-        dispatch({ type: "Game Over" });
-      })
-    ) {
-    }
+    // Matter.Events.on(engine, "collisionStart", (event) => {
+    //   dispatch({ type: "Game Over" });
+    // });
 
     // if (Matter.Collision.collides(asteroid, rocket)) {
     //   if ("Health1" in entities) {

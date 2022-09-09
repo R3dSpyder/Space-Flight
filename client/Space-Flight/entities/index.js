@@ -8,12 +8,14 @@ import Cloud from "./Cloud";
 import Start from "./Start-game";
 import Asteroid from "./Asteroid";
 import axisGenerator from "../Utils/axisGenerator";
+import Collectable from "./Collectable";
+import GoLeaderBoard from "./GoLeaderBoard";
 // import Health from "./Health";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
-export default restart => {
+export default (restart) => {
   let engine = Matter.Engine.create({ enableSleeping: false });
 
   let world = engine.world;
@@ -48,24 +50,26 @@ export default restart => {
     Rocket: Rocket(
       world,
       { x: 200, y: windowHeight - 125 },
-      { height: 100, width: 40 }
+      { height: 75, width: 30 }
     ),
-    // Ground: Ground(
-    //   world,
-    //   "green",
-    //   { x: windowWidth / 2, y: windowHeight - 75 },
-    //   { height: 100, width: windowWidth }
-    // ),
+
     Wall: Wall(
       world,
       "green",
       { x: -5, y: -windowHeight },
       { height: windowHeight, width: 10 }
     ),
-    // Cloud1: Cloud(world, { x: 200, y: 150 }, { height: 100, width: 100 }),
-    // Cloud2: Cloud(world, { x: 250, y: 150 }, { height: 100, width: 100 }),
-    // Cloud3: Cloud(world, { x: 150, y: 150 }, { height: 100, width: 100 }),
+    Collectable: Collectable(
+      world,
+      { x: axisGenerator(0, windowWidth), y: -50 },
+      { height: 25, width: 25 }
+    ),
     Start: Start(world, { x: 200, y: 200 }, { height: 100, width: 100 }),
+    Leaderboard: GoLeaderBoard(
+      world,
+      { x: 70, y: 300 },
+      { height: 100, width: 100 }
+    ),
     ...asteroids,
     // ...healthLives,
   };

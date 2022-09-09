@@ -17,45 +17,45 @@ export default function Home({ navigation }) {
   const [startGame, setStartGame] = useState(false);
   const [lives, setLives] = useState(3);
   const [gameEngine, setGameEngine] = useState(null);
-
-  console.log(startGame);
+  const [currentPoints, setCurrentPoints] = useState(0);
 
   useEffect(() => {}, []);
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.backgroungImage}
-        source={require("../assets/stars.jpg")}
-      />
+    <View style={{ flex: 1, backgroundColor: "black" }}>
+      {/* <Image style={{ flex: 1 }} source={require("../assets/stars.jpg")} /> */}
       <Text style={styles.title}>SPACE DODGE!</Text>
-      {/* <Image source={require("../assets/spaceship.png")}></Image> */}
-      {/* <TouchableOpacity>
-        <Text style={styles.start}>TAKE OFF!</Text>
-      </TouchableOpacity>
-      <Button
-        title="StartGame"
-        onPress={() => navigation.navigate("StartGame")}
-      />
-      <Button title="TopMenu" onPress={() => navigation.navigate("TopMenu")} />
-      <Button title="Login" onPress={() => navigation.navigate("Login")} /> */}
+      <Text
+        style={{
+          flex: 1,
+          justifyContent: "flex-start",
+          textAlign: "center",
+          fontSize: 40,
+          color: "white",
+          margin: 20,
+        }}
+      >
+        {currentPoints}
+      </Text>
       <GameEngine
-        ref={ref => {
+        ref={(ref) => {
           setGameEngine(ref);
         }}
         systems={[!startGame ? Physics : startGamePhysics]}
         entities={entities()}
         running={running}
-        onEvent={e => {
-          e.type === "start game" ? setStartGame(true) : null;
-          // e.type === "Game Over"
-          //   ? setRunning(false) && setGameEngine(gameEngine.stop)
-          //   : running;
-          e.type === "Game Over" ? setRunning(false) : null;
+        onEvent={(e) => {
+          e.type === "start game"
+            ? setStartGame(true)
+            : e.type === "game_over"
+            ? setRunning(false) && setGameEngine(gameEngine.stop)
+            : running;
         }}
         style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
       ></GameEngine>
-      {!running ? (
-        <View style={{ flex: 1 }}>
+      {/* {!running ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
           <TouchableOpacity
             onPress={() => {
               setRunning(true);
@@ -65,7 +65,7 @@ export default function Home({ navigation }) {
             <Text style={{ color: "white" }}>Restart</Text>
           </TouchableOpacity>
         </View>
-      ) : null}
+      ) : null} */}
     </View>
   );
 }
