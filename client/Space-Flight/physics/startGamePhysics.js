@@ -1,6 +1,5 @@
 import Matter, { Detector } from "matter-js";
 import { Dimensions } from "react-native";
-import GoLeaderBoard from "../entities/GoLeaderBoard";
 import axisGenerator from "../Utils/axisGenerator";
 // import incrementLives from "../Utils/incrementingLives";
 
