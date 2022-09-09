@@ -1,11 +1,10 @@
-import Matter from "matter-js";
+import Matter, { Detector } from "matter-js";
 import { Dimensions } from "react-native";
 import axisGenerator from "../Utils/axisGenerator";
-import incrementLives from "../Utils/incrementingLives";
+// import incrementLives from "../Utils/incrementingLives";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
-let life = 1;
 
 const startGamePhysics = (entities, { touches, time, dispatch }) => {
   const engine = entities.physics.engine;
@@ -24,20 +23,45 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
   for (let i = 1; i <= 10; i++) {
     const asteroid = entities[`Asteroid${i}`].body;
     Matter.Body.translate(asteroid, { x: 0, y: 4 });
+
+    //reset position when asteroids leave the page
     if (asteroid.bounds.max.y > windowHeight) {
       Matter.Body.setPosition(asteroid, {
         x: axisGenerator(10, windowWidth - 10),
         y: 0,
       });
     }
-    if (Matter.Collision.collides(asteroid, rocket)) {
-      for (let i = 1; i <= 3; i++) {
-        Matter.Body.translate(entities[`Health${life}`].body, {
-          x: 4,
-          y: 0,
-        });
-      }
+
+    //on collision with the rocket, 1 health rocket disappears
+
+    if (
+      Matter.Events.on(engine, "collisionStart", event => {
+        dispatch({ type: "Game Over" });
+      })
+    ) {
     }
+
+    // if (Matter.Collision.collides(asteroid, rocket)) {
+    //   if ("Health1" in entities) {
+    //     Matter.Body.setVelocity(entities.Health1.body, {
+    //       x: 0,
+    //       y: 1,
+    //     });
+    //     delete entities.Health1;
+    //   } else if ("Health2" in entities) {
+    //     Matter.Body.setVelocity(entities.Health2.body, {
+    //       x: 0,
+    //       y: 1,
+    //     });
+    //     delete entities.Health2;
+    //   } else if ("Health3" in entities) {
+    //     Matter.Body.setVelocity(entities.Health3.body, {
+    //       x: 0,
+    //       y: 1,
+    //     });
+    //     delete entities.Health3;
+    //   }
+    // }
   }
 
   Matter.Body.translate(start, { x: 0, y: 4 });

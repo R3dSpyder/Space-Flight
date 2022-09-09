@@ -41,7 +41,7 @@ export default (world, pos, size) => {
     pos.y,
     size.width,
     size.height,
-    { label: "Rocket", inertia: Infinity }
+    { label: "Rocket", inertia: Infinity } //stops rocket from stretching
   );
   Matter.World.add(world, initialRocket);
 

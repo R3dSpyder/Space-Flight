@@ -1,6 +1,12 @@
 import Matter from "matter-js";
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from "react-native";
 
 const Start = props => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
@@ -22,7 +28,9 @@ const Start = props => {
         height: heightBody,
       }}
     >
-      <Text style={{ color: "white", fontSize: 30 }}>START</Text>
+      <ImageBackground source={require("../assets/Cloud.png")}>
+        <Text style={{ color: "black", fontSize: 30 }}>START</Text>
+      </ImageBackground>
     </View>
   );
 };

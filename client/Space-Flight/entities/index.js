@@ -8,7 +8,7 @@ import Cloud from "./Cloud";
 import Start from "./Start-game";
 import Asteroid from "./Asteroid";
 import axisGenerator from "../Utils/axisGenerator";
-import Health from "./Health";
+// import Health from "./Health";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -31,16 +31,16 @@ export default restart => {
     );
   }
 
-  const healthLives = {};
-  let x = 100;
-  for (let i = 1; i <= 3; i++) {
-    healthLives[`Health${i}`] = Health(
-      world,
-      { x: windowWidth - x, y: windowHeight - 75 },
-      { height: 30, width: 25 }
-    );
-    x -= 40;
-  }
+  // const healthLives = {};
+  // let x = 100;
+  // for (let i = 1; i <= 3; i++) {
+  //   healthLives[`Health${i}`] = Health(
+  //     world,
+  //     { x: windowWidth - x, y: windowHeight - 75 },
+  //     { height: 30, width: 25 }
+  //   );
+  //   x -= 40;
+  // }
 
   return {
     physics: { engine, world },
@@ -65,8 +65,8 @@ export default restart => {
     // Cloud1: Cloud(world, { x: 200, y: 150 }, { height: 100, width: 100 }),
     // Cloud2: Cloud(world, { x: 250, y: 150 }, { height: 100, width: 100 }),
     // Cloud3: Cloud(world, { x: 150, y: 150 }, { height: 100, width: 100 }),
-    Start: Start(world, { x: 200, y: 200 }, { height: 50, width: 100 }),
+    Start: Start(world, { x: 200, y: 200 }, { height: 100, width: 100 }),
     ...asteroids,
-    ...healthLives,
+    // ...healthLives,
   };
 };

@@ -16,6 +16,7 @@ export default function Home({ navigation }) {
   const [running, setRunning] = useState(true);
   const [startGame, setStartGame] = useState(false);
   const [lives, setLives] = useState(3);
+  const [gameEngine, setGameEngine] = useState(null);
 
   console.log(startGame);
 
@@ -38,14 +39,33 @@ export default function Home({ navigation }) {
       <Button title="TopMenu" onPress={() => navigation.navigate("TopMenu")} />
       <Button title="Login" onPress={() => navigation.navigate("Login")} /> */}
       <GameEngine
+        ref={ref => {
+          setGameEngine(ref);
+        }}
         systems={[!startGame ? Physics : startGamePhysics]}
         entities={entities()}
         running={running}
         onEvent={e => {
           e.type === "start game" ? setStartGame(true) : null;
+          // e.type === "Game Over"
+          //   ? setRunning(false) && setGameEngine(gameEngine.stop)
+          //   : running;
+          e.type === "Game Over" ? setRunning(false) : null;
         }}
         style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
       ></GameEngine>
+      {!running ? (
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity
+            onPress={() => {
+              setRunning(true);
+              gameEngine.swap(entities());
+            }}
+          >
+            <Text style={{ color: "white" }}>Restart</Text>
+          </TouchableOpacity>
+        </View>
+      ) : null}
     </View>
   );
 }
