@@ -32,6 +32,7 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
         x: axisGenerator(10, windowWidth - 10),
         y: 0,
       });
+      dispatch({ type: "points" });
     }
 
     if (Matter.Collision.collides(rocket, asteroid)) {

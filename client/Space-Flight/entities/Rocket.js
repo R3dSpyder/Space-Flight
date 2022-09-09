@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Image } from "react-native";
 
-const Rocket = props => {
+const Rocket = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 

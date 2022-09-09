@@ -23,19 +23,16 @@ export default function App() {
   ) : (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          options={{ headerShown: false }}
+          component={Home}
+        />
         <Stack.Screen name="StartGame" component={StartGame} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="TopMenu" component={TopMenu} />
       </Stack.Navigator>
-      {/* <>
-        <NavBar />
-        <View style={styles.container}>
-          <Home />
-          <StatusBar style="auto" hidden={true} />
-        </View>
-      </> */}
     </NavigationContainer>
   );
 }

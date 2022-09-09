@@ -29,7 +29,7 @@ export default (restart) => {
         x: axisGenerator(10, windowWidth - 10),
         y: axisGenerator(-600, -20),
       },
-      { height: 50, width: 50 }
+      { height: 35, width: 35 }
     );
   }
 
@@ -53,10 +53,16 @@ export default (restart) => {
       { height: 75, width: 30 }
     ),
 
-    Wall: Wall(
+    LeftWall: Wall(
       world,
       "green",
-      { x: -5, y: -windowHeight },
+      { x: 0, y: windowHeight / 2 },
+      { height: windowHeight, width: 10 }
+    ),
+    RightWall: Wall(
+      world,
+      "green",
+      { x: windowWidth, y: windowHeight / 2 },
       { height: windowHeight, width: 10 }
     ),
     Collectable: Collectable(

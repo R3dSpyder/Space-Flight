@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Image } from "react-native";
 
-const Asteroid = props => {
+const Asteroid = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -29,7 +29,7 @@ const Asteroid = props => {
           backgroundColor: "transparent",
         }}
         resizeMode="stretch"
-        source={require("../assets/asteroid.png")}
+        source={require("../assets/asteroidnew.png")}
       ></Image>
     </View>
   );
@@ -43,6 +43,7 @@ export default (world, pos, size) => {
     size.height,
     { label: "Asteroid", inertia: Infinity }
   );
+  initialAsteroid.collisionFilter.group = -1;
   Matter.World.add(world, initialAsteroid);
 
   return {

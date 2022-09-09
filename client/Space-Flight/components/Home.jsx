@@ -19,18 +19,17 @@ export default function Home({ navigation }) {
   const [gameEngine, setGameEngine] = useState(null);
   const [currentPoints, setCurrentPoints] = useState(0);
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
       {/* <Image style={{ flex: 1 }} source={require("../assets/stars.jpg")} /> */}
       <Text style={styles.title}>SPACE DODGE!</Text>
       <Text
         style={{
-          justifyContent: "flex-start",
           textAlign: "center",
           fontSize: 40,
           color: "white",
-          margin: 20,
+          margin: 0,
         }}
       >
         {currentPoints}
@@ -46,9 +45,13 @@ export default function Home({ navigation }) {
           e.type === "start_game"
             ? setStartGame(true)
             : e.type === "game_over"
-            ? setRunning(false) && setGameEngine(gameEngine.stop)
+            ? navigation.navigate("LeaderBoard") &&
+              setRunning(false) &&
+              setGameEngine(gameEngine.stop)
             : e.type === "leaderboard"
             ? navigation.navigate("LeaderBoard")
+            : e.type === "points"
+            ? setCurrentPoints(currentPoints + 100)
             : running;
         }}
         style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}

@@ -2,19 +2,17 @@ import Matter from "matter-js";
 import React from "react";
 import { View } from "react-native";
 
-const Floor = (props) => {
+const Wall = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
   const xBody = props.body.position.x - widthBody / 2;
   const yBody = props.body.position.y - heightBody / 2;
 
-  const color = props.color;
-
   return (
     <View
       style={{
-        backgroundColor: color,
+        backgroundColor: "green",
         position: "absolute",
         left: xBody,
         top: yBody,
@@ -26,19 +24,18 @@ const Floor = (props) => {
 };
 
 export default (world, color, pos, size) => {
-  const initialFloor = Matter.Bodies.rectangle(
-    pos.x,
-    pos.y,
-    size.width,
-    size.height,
-    { label: "Floor", isStatic: false }
-  );
-  Matter.World.add(world, initialFloor);
+  const wall = Matter.Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
+    label: "Wall",
+    isStatic: true,
+  });
+  wall.collisionFilter.group = -1;
+
+  Matter.World.add(world, wall);
 
   return {
-    body: initialFloor,
+    body: wall,
     color,
     pos,
-    renderer: <Floor />,
+    renderer: <Wall />,
   };
 };
