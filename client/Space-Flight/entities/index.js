@@ -9,7 +9,7 @@ import Start from "./Start-game";
 import Asteroid from "./Asteroid";
 import axisGenerator from "../Utils/axisGenerator";
 import Collectable from "./Collectable";
-import GoLeaderBoard from "./GoLeaderBoard";
+import Menu from "./Menu";
 // import Health from "./Health";
 
 const windowHeight = Dimensions.get("window").height;
@@ -71,11 +71,11 @@ export default (restart) => {
       { height: 25, width: 25 }
     ),
     Start: Start(world, { x: 200, y: 200 }, { height: 100, width: 100 }),
-    Leaderboard: GoLeaderBoard(
-      world,
-      { x: 70, y: 300 },
-      { height: 100, width: 100 }
-    ),
+    // Leaderboard: GoLeaderBoard(
+    //   world,
+    //   { x: 70, y: 300 },
+    //   { height: 100, width: 100 }
+    // ),
     ...asteroids,
     // ...healthLives,
   };

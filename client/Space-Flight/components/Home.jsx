@@ -19,43 +19,97 @@ export default function Home({ navigation }) {
   const [gameEngine, setGameEngine] = useState(null);
   const [currentPoints, setCurrentPoints] = useState(0);
 
-  // useEffect(() => {}, []);
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
       {/* <Image style={{ flex: 1 }} source={require("../assets/stars.jpg")} /> */}
-      <Text style={styles.title}>SPACE DODGE!</Text>
       <Text
         style={{
           textAlign: "center",
           fontSize: 40,
           color: "white",
-          margin: 0,
+          top: 10,
         }}
       >
         {currentPoints}
       </Text>
-      <GameEngine
-        ref={(ref) => {
-          setGameEngine(ref);
-        }}
-        systems={[!startGame ? Physics : startGamePhysics]}
-        entities={entities()}
-        running={running}
-        onEvent={(e) => {
-          e.type === "start_game"
-            ? setStartGame(true)
-            : e.type === "game_over"
-            ? navigation.navigate("LeaderBoard") &&
-              setRunning(false) &&
-              setGameEngine(gameEngine.stop)
-            : e.type === "leaderboard"
-            ? navigation.navigate("LeaderBoard")
-            : e.type === "points"
-            ? setCurrentPoints(currentPoints + 100)
-            : running;
-        }}
-        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
-      ></GameEngine>
+      {running ? (
+        <GameEngine
+          ref={(ref) => {
+            setGameEngine(ref);
+          }}
+          systems={[!startGame ? Physics : startGamePhysics]}
+          entities={entities()}
+          running={running}
+          onEvent={(e) => {
+            e.type === "start_game" ? setStartGame(true) : null;
+            if (e.type === "game_over") {
+              setRunning(false);
+              setGameEngine(gameEngine.stop);
+            }
+            e.type === "leaderboard"
+              ? navigation.navigate("LeaderBoard")
+              : e.type === "points"
+              ? setCurrentPoints(currentPoints + 100)
+              : running;
+          }}
+          style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+        ></GameEngine>
+      ) : null}
+      {!running ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              setRunning(true);
+              setStartGame(false);
+              setCurrentPoints(0);
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "white",
+                fontSize: 30,
+                bottom: 20,
+              }}
+            >
+              RESTART GAME
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("LeaderBoard");
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "white",
+                fontSize: 30,
+                bottom: 10,
+              }}
+            >
+              LEADERBOARD
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Login");
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "white",
+                fontSize: 30,
+              }}
+            >
+              LOGIN
+            </Text>
+          </TouchableOpacity>
+        </View>
+      ) : null}
     </View>
   );
 }

@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Text } from "react-native";
 
-const LeaderBoard = (props) => {
+const Menu = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -29,17 +29,14 @@ const LeaderBoard = (props) => {
 };
 
 export default (world, pos, size) => {
-  const initialLeaderBoard = Matter.Bodies.rectangle(
-    pos.x,
-    pos.y,
-    size.width,
-    size.height,
-    { label: "leaderBoard", inertia: Infinity }
-  );
+  const menu = Matter.Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
+    label: "Menu",
+    inertia: Infinity,
+  });
   Matter.World.add(world, initialLeaderBoard);
 
   return {
-    body: initialLeaderBoard,
+    body: menu,
     pos,
     renderer: <LeaderBoard />,
   };

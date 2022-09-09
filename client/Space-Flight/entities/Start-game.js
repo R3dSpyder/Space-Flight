@@ -8,7 +8,7 @@ import {
   ImageBackground,
 } from "react-native";
 
-const Start = props => {
+const Start = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -29,7 +29,9 @@ const Start = props => {
       }}
     >
       <ImageBackground source={require("../assets/Cloud.png")}>
-        <Text style={{ color: "black", fontSize: 30 }}>START</Text>
+        <Text style={{ textAlign: "center", color: "black", fontSize: 25 }}>
+          START
+        </Text>
       </ImageBackground>
     </View>
   );

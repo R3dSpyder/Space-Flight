@@ -5,7 +5,7 @@ export const Physics = (entities, { touches, time, dispatch }) => {
   let engine = entities.physics.engine;
   const rocket = entities.Rocket.body;
   const start = entities.Start.body;
-  const leaderboard = entities.Leaderboard.body;
+  // const leaderboard = entities.Leaderboard.body;
   const asteroid = entities.Asteroid1.body;
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
@@ -23,10 +23,10 @@ export const Physics = (entities, { touches, time, dispatch }) => {
     dispatch({ type: "start_game" });
   }
 
-  if (Matter.Collision.collides(rocket, leaderboard)) {
-    World.remove(engine.world, start);
-    dispatch({ type: "leaderboard" });
-  }
+  // if (Matter.Collision.collides(rocket, leaderboard)) {
+  //   World.remove(engine.world, start);
+  //   dispatch({ type: "leaderboard" });
+  // }
 
   Matter.Body.rotate(asteroid, 0.25);
 
