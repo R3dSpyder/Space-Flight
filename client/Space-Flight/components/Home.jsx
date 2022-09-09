@@ -26,7 +26,6 @@ export default function Home({ navigation }) {
       <Text style={styles.title}>SPACE DODGE!</Text>
       <Text
         style={{
-          flex: 1,
           justifyContent: "flex-start",
           textAlign: "center",
           fontSize: 40,
