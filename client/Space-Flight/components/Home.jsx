@@ -1,4 +1,12 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  TextInput,
+  Button,
+} from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import { Physics } from "../physics/physics.js";
 import entities from "../entities/index.js";
@@ -13,97 +21,114 @@ export default function Home({ navigation }) {
   const [currentPoints, setCurrentPoints] = useState(0);
   const [currSpaceCoins, setCurrSpaceCoins] = useState(0);
   const [currScrolls, setCurrentScrolls] = useState(0);
+  const [currName, setCurrName] = useState("unknown");
+
+  console.log(currName);
+
+  const postScore = (e) => {
+    // do api call with currName
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
-      {/* <Image style={{ flex: 1 }} source={require("../assets/stars.jpg")} /> */}
-
-      <Text
-        style={{
-          textAlign: "center",
-          fontSize: 40,
-          color: "white",
-          top: 10,
-        }}
-      >
-        {currentPoints}
-      </Text>
-      <Text
-        style={{
-          textAlign: "left",
-          fontSize: 20,
-          color: "white",
-          top: 10,
-        }}
-      >
-        {currSpaceCoins}
-      </Text>
-      <Image source={require("../assets/SpaceCoin.png")} />
-      <Text
-        style={{
-          textAlign: "left",
-          fontSize: 20,
-          color: "white",
-          top: 20,
-        }}
-      >
-        {currScrolls}
-      </Text>
-      <Image source={require("../assets/Scroll.png")} />
-
       {running ? (
-      <>
-        <GameEngine
-          ref={ref => {
-            setGameEngine(ref);
-          }}
-          systems={[!startGame ? Physics : startGamePhysics]}
-          entities={entities()}
-          running={running}
-          onEvent={e => {
-            e.type === "start_game" ? setStartGame(true) : null;
-            if (e.type === "game_over") {
-              setRunning(false);
-              setGameEngine(gameEngine.stop);
-            }
-            e.type === "leaderboard"
-              ? navigation.navigate("LeaderBoard")
-              : e.type === "points"
-              ? setCurrentPoints(currentPoints + 100)
-              : e.type === "add_SpaceCoin"
-              ? setCurrSpaceCoins(currSpaceCoins + 1)
-              : e.type === "add_Scroll"
-              ? setCurrentScrolls(currScrolls + 1)
-              : running;
-          }}
-          style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
-        ></GameEngine>
-        <Text
-        style={{
-          textAlign: "center",
-          fontSize: 40,
-          color: "white",
-          top: 50,
-        }}
-      >
-        {currentPoints}
-      </Text>
-      <Text
-        style={{
-          textAlign: "left",
-          fontSize: 20,
-          color: "white",
-          top: 50,
-        }}
-      >
-        {currSpaceCoins}
-      </Text>
-      </>
+        <>
+          <GameEngine
+            ref={(ref) => {
+              setGameEngine(ref);
+            }}
+            systems={[!startGame ? Physics : startGamePhysics]}
+            entities={entities()}
+            running={running}
+            onEvent={(e) => {
+              e.type === "start_game" ? setStartGame(true) : null;
+              if (e.type === "game_over") {
+                setRunning(false);
+                setGameEngine(gameEngine.stop);
+              }
+              e.type === "leaderboard"
+                ? navigation.navigate("LeaderBoard")
+                : e.type === "points"
+                ? setCurrentPoints(currentPoints + 100)
+                : e.type === "add_SpaceCoin"
+                ? setCurrSpaceCoins(currSpaceCoins + 1)
+                : e.type === "add_Scroll"
+                ? setCurrentScrolls(currScrolls + 1)
+                : running;
+            }}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+            }}
+          ></GameEngine>
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 20,
+              color: "white",
+              top: 50,
+            }}
+          >
+            {currentPoints}
+          </Text>
+          <Text
+            style={{
+              textAlign: "left",
+              fontSize: 20,
+              color: "white",
+              top: 50,
+            }}
+          >
+            {currSpaceCoins}
+          </Text>
+          <Image source={require("../assets/SpaceCoin.png")} />
+          <Text
+            style={{
+              textAlign: "left",
+              fontSize: 20,
+              color: "white",
+              top: 50,
+            }}
+          >
+            {currScrolls}
+          </Text>
+          <Image source={require("../assets/Scroll.png")} />
+        </>
       ) : null}
       {!running ? (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 20,
+              color: "white",
+              top: 50,
+            }}
+          >
+            {currentPoints}{" "}
+            <Image
+              style={{ height: 20, width: 20 }}
+              source={require("../assets/asteroid.png")}
+            />{" "}
+            {currSpaceCoins}{" "}
+            <Image source={require("../assets/SpaceCoin.png")} /> {currScrolls}
+            <Image source={require("../assets/Scroll.png")} />
+          </Text>
+
+          <TextInput
+            placeholder="INPUT NAME"
+            placeholderTextColor={"white"}
+            style={{ fontSize: 30, color: "white", fontWeight: "bold" }}
+            onChangeText={(text) => {
+              setCurrName(text);
+            }}
+          />
+          <Button title="submit" onPress={postScore} />
           <TouchableOpacity
             onPress={() => {
               setRunning(true);
