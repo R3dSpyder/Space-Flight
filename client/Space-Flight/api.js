@@ -5,14 +5,14 @@ export function getLeaderBoard(limit = 10, direction = "DESC") {
 
   return axios
     .get(queryString)
-    .then((response) => {
+    .then(response => {
       if (response.data.error) {
         throw response.data.error;
       } else {
         return response.data.scores;
       }
     })
-    .catch((err) => {
+    .catch(err => {
       throw new Error("Request abandoned, check path. Error:", err);
     });
 }
@@ -22,14 +22,14 @@ export function getPersonalScores(user_id, limit = 10, direction = "DESC") {
     let queryString = `https://space-flight-backend-nc.herokuapp.com/api/scores/userScores/${user_id}?limit=${limit}&direction =${direction}`;
     return axios
       .get(queryString)
-      .then((response) => {
+      .then(response => {
         if (response.data.error) {
           throw response.data.error;
         } else {
           return response.data.personalScores;
         }
       })
-      .catch((err) => {
+      .catch(err => {
         throw new Error(
           "Request abandoned, check path or check user_id. Error:",
           err
@@ -44,14 +44,14 @@ export function getUsers(username = null, limit = 10, direction = "DESC") {
   let queryString = `https://space-flight-backend-nc.herokuapp.com/api/users?username=${username}&limit=${limit}&direction=${direction}`;
   return axios
     .get(queryString)
-    .then((response) => {
+    .then(response => {
       if (response.data.error) {
         throw response.data.error;
       } else {
         return response.data.users;
       }
     })
-    .catch((err) => {
+    .catch(err => {
       throw new Error("Request abandoned, check path. Error:", err);
     });
 }
@@ -60,14 +60,14 @@ export function postScore(score, user_id) {
   let queryString = `https://space-flight-backend-nc.herokuapp.com/api/scores`;
   return axios
     .post(queryString, { score: score, user_id: user_id })
-    .then((response) => {
+    .then(response => {
       if (response.data.error) {
         throw response.data.error;
       } else {
         return response.data.putScore;
       }
     })
-    .catch((err) => {
+    .catch(err => {
       throw new Error("Post failed:", err);
     });
 }
@@ -77,17 +77,24 @@ export function postUser(username) {
     let queryString = `https://space-flight-backend-nc.herokuapp.com/api/user`;
     return axios
       .post(queryString, { score: score, user_id: user_id })
-      .then((response) => {
+      .then(response => {
         if (response.data.error) {
           throw response.data.error;
         } else {
           return response.data.putUser;
         }
       })
-      .catch((err) => {
+      .catch(err => {
         throw new Error("Post failed:", err);
       });
   } else {
     throw new Error("You need to provide a username");
   }
+}
+
+// Space facts API calls
+
+export function getPlanetByName(planet) {
+  let queryString = `https://api.le-systeme-solaire.net/rest/bodies/${planet}`;
+  return axios.get(queryString).then(response => response);
 }

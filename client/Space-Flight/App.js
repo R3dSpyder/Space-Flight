@@ -10,6 +10,7 @@ import StartGame from "./components/StartGame";
 import Login from "./components/Login";
 import TopMenu from "./components/TopMenu";
 import LeaderBoard from "./components/LeaderBoard";
+import CollectedScrolls from "./components/CollectedScrolls";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
         <Stack.Screen name="TopMenu" component={TopMenu} />
+        <Stack.Screen name="CollectedScrolls" component={CollectedScrolls} />
       </Stack.Navigator>
     </NavigationContainer>
   );
