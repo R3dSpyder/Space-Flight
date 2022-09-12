@@ -10,7 +10,6 @@ const Cloud = (props) => {
   const yBody = props.body.position.y - heightBody / 2;
 
   if (props.body.position.y < 0) {
-    // console.log("yeeee");
     // use this for something like this (() => navigation.navigate("Login"))()
   }
 
