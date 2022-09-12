@@ -12,7 +12,6 @@ const Wall = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "green",
         position: "absolute",
         left: xBody,
         top: yBody,
@@ -23,7 +22,7 @@ const Wall = (props) => {
   );
 };
 
-export default (world, color, pos, size) => {
+export default (world, pos, size) => {
   const wall = Matter.Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
     label: "Wall",
     isStatic: true,
@@ -34,7 +33,6 @@ export default (world, color, pos, size) => {
 
   return {
     body: wall,
-    color,
     pos,
     renderer: <Wall />,
   };

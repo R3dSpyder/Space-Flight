@@ -6,6 +6,7 @@ import Title from "./Title";
 import Wall from "./Wall";
 import Cloud from "./Cloud";
 import Start from "./Start-game";
+import Backdrop from "./Backdrop";
 import Asteroid from "./Asteroid";
 import axisGenerator from "../Utils/axisGenerator";
 import Collectable from "./Collectable";
@@ -46,7 +47,7 @@ export default (restart) => {
 
   return {
     physics: { engine, world },
-
+    Backdrop: Backdrop(world, { x: 0, y: -19000 }, { height: 100, width: 200 }),
     Rocket: Rocket(
       world,
       { x: 200, y: windowHeight - 125 },
@@ -55,13 +56,11 @@ export default (restart) => {
 
     LeftWall: Wall(
       world,
-      "green",
       { x: 0, y: windowHeight / 2 },
       { height: windowHeight, width: 10 }
     ),
     RightWall: Wall(
       world,
-      "green",
       { x: windowWidth, y: windowHeight / 2 },
       { height: windowHeight, width: 10 }
     ),
@@ -71,12 +70,6 @@ export default (restart) => {
       { height: 25, width: 25 }
     ),
     Start: Start(world, { x: 200, y: 200 }, { height: 100, width: 100 }),
-    // Leaderboard: GoLeaderBoard(
-    //   world,
-    //   { x: 70, y: 300 },
-    //   { height: 100, width: 100 }
-    // ),
     ...asteroids,
-    // ...healthLives,
   };
 };
