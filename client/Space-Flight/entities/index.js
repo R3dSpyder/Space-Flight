@@ -8,14 +8,14 @@ import Cloud from "./Cloud";
 import Start from "./Start-game";
 import Asteroid from "./Asteroid";
 import axisGenerator from "../Utils/axisGenerator";
-import Collectable from "./Collectable";
+import SpaceCoin from "./Space_coins";
 import Menu from "./Menu";
 // import Health from "./Health";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
-export default (restart) => {
+export default restart => {
   let engine = Matter.Engine.create({ enableSleeping: false });
 
   let world = engine.world;
@@ -30,6 +30,18 @@ export default (restart) => {
         y: axisGenerator(-600, -20),
       },
       { height: 35, width: 35 }
+    );
+  }
+
+  const spaceCoins = {};
+  for (let i = 1; i <= 5; i++) {
+    spaceCoins[`SpaceCoin${i}`] = SpaceCoin(
+      world,
+      {
+        x: axisGenerator(10, windowWidth - 10),
+        y: axisGenerator(-10000, -20),
+      },
+      { height: 20, width: 20 }
     );
   }
 
@@ -65,11 +77,11 @@ export default (restart) => {
       { x: windowWidth, y: windowHeight / 2 },
       { height: windowHeight, width: 10 }
     ),
-    Collectable: Collectable(
-      world,
-      { x: axisGenerator(0, windowWidth), y: -50 },
-      { height: 25, width: 25 }
-    ),
+    // Collectable: Collectable(
+    //   world,
+    //   { x: axisGenerator(0, windowWidth), y: -50 },
+    //   { height: 25, width: 25 }
+    // ),
     Start: Start(world, { x: 200, y: 200 }, { height: 100, width: 100 }),
     // Leaderboard: GoLeaderBoard(
     //   world,
@@ -77,6 +89,7 @@ export default (restart) => {
     //   { height: 100, width: 100 }
     // ),
     ...asteroids,
+    ...spaceCoins,
     // ...healthLives,
   };
 };

@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-  Button,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import { Physics } from "../physics/physics.js";
 import entities from "../entities/index.js";
@@ -18,6 +11,7 @@ export default function Home({ navigation }) {
   const [lives, setLives] = useState(3);
   const [gameEngine, setGameEngine] = useState(null);
   const [currentPoints, setCurrentPoints] = useState(0);
+  const [currSpaceCoins, setCurrSpaceCoins] = useState(0);
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
@@ -32,15 +26,26 @@ export default function Home({ navigation }) {
       >
         {currentPoints}
       </Text>
+      <Text
+        style={{
+          textAlign: "left",
+          fontSize: 20,
+          color: "white",
+          top: 10,
+        }}
+      >
+        {currSpaceCoins}
+      </Text>
+      <Image source={require("../assets/SpaceCoin.png")} />
       {running ? (
         <GameEngine
-          ref={(ref) => {
+          ref={ref => {
             setGameEngine(ref);
           }}
           systems={[!startGame ? Physics : startGamePhysics]}
           entities={entities()}
           running={running}
-          onEvent={(e) => {
+          onEvent={e => {
             e.type === "start_game" ? setStartGame(true) : null;
             if (e.type === "game_over") {
               setRunning(false);
@@ -50,6 +55,8 @@ export default function Home({ navigation }) {
               ? navigation.navigate("LeaderBoard")
               : e.type === "points"
               ? setCurrentPoints(currentPoints + 100)
+              : e.type === "add_SpaceCoin"
+              ? setCurrSpaceCoins(currSpaceCoins + 1)
               : running;
           }}
           style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
