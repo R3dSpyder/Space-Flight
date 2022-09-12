@@ -1,8 +1,8 @@
 import Matter from "matter-js";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Image } from "react-native";
 
-const Menu = (props) => {
+const Backdrop = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -13,31 +13,44 @@ const Menu = (props) => {
     <View
       style={{
         position: "absolute",
-        wireframes: true,
+        wireframes: false,
         background: "transparent",
         wireframeBackground: "transparent",
         left: xBody,
         top: yBody,
         width: widthBody,
-        height: heightBody,
+        height: 20000,
       }}
     >
-      <Text style={{ color: "white", fontSize: 25 }}>MENU</Text>
-      {/* <Text style={{ color: "white", fontSize: 25 }}>LEADER{"\n"}BOARD</Text> */}
+      <Image
+        style={{
+          width: widthBody * 4,
+          height: 20000,
+          //   backgroundColor: "transparent",
+        }}
+        resizeMode="stretch"
+        source={require("../assets/space-background.png")}
+      ></Image>
     </View>
   );
 };
 
 export default (world, pos, size) => {
-  const menu = Matter.Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
-    label: "Menu",
-    inertia: Infinity,
-  });
-  Matter.World.add(world, menu);
+  const initialBD = Matter.Bodies.rectangle(
+    pos.x,
+    pos.y,
+    size.width,
+    size.height,
+    {
+      label: "Backdrop",
+      inertia: Infinity,
+    }
+  );
+  Matter.World.add(world, initialBD);
 
   return {
-    body: menu,
+    body: initialBD,
     pos,
-    renderer: <Menu />,
+    renderer: <Backdrop />,
   };
 };
