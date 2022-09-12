@@ -11,6 +11,9 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
   const rocket = entities.Rocket.body;
   const start = entities.Start.body;
   const backdrop = entities.Backdrop.body;
+  const menu = entities.Menu.body;
+  const ground = entities.Ground.body;
+
   // const leaderboard = entities.Leaderboard.body;
 
   touches
@@ -67,6 +70,8 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
   }
 
   Matter.Body.translate(start, { x: 0, y: 4 });
+  Matter.Body.translate(menu, { x: 0, y: 4 });
+  Matter.Body.translate(ground, { x: 0, y: 4 });
   Matter.Body.translate(backdrop, { x: 0, y: 2 });
 
   Matter.Engine.update(engine, time.delta);
