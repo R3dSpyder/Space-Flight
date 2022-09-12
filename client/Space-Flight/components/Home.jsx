@@ -23,8 +23,6 @@ export default function Home({ navigation }) {
   const [currScrolls, setCurrentScrolls] = useState(0);
   const [currName, setCurrName] = useState("unknown");
 
-  console.log(currName);
-
   const postScore = (e) => {
     // do api call with currName
   };
@@ -102,7 +100,7 @@ export default function Home({ navigation }) {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Text
+          {/* <Text
             style={{
               textAlign: "center",
               fontSize: 20,
@@ -118,17 +116,18 @@ export default function Home({ navigation }) {
             {currSpaceCoins}{" "}
             <Image source={require("../assets/SpaceCoin.png")} /> {currScrolls}
             <Image source={require("../assets/Scroll.png")} />
-          </Text>
-
-          <TextInput
-            placeholder="INPUT NAME"
-            placeholderTextColor={"white"}
-            style={{ fontSize: 30, color: "white", fontWeight: "bold" }}
-            onChangeText={(text) => {
-              setCurrName(text);
-            }}
-          />
-          <Button title="submit" onPress={postScore} />
+          </Text> */}
+          <View style={{ bottom: 100 }}>
+            <TextInput
+              placeholder="INPUT NAME FOR LEADERBOARD"
+              placeholderTextColor={"grey"}
+              style={{ fontSize: 20, color: "white", fontWeight: "bold" }}
+              onChangeText={(text) => {
+                setCurrName(text);
+              }}
+            />
+            <Button title="SUBMIT" onPress={postScore} />
+          </View>
           <TouchableOpacity
             onPress={() => {
               setRunning(true);
