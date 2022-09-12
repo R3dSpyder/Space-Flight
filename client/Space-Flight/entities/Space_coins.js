@@ -41,7 +41,7 @@ export default (world, pos, size) => {
     pos.y,
     size.width,
     size.height,
-    { label: "Asteroid", inertia: Infinity, isStatic: true }
+    { label: "SpaceCoin", inertia: Infinity, isStatic: true }
   );
   Matter.World.add(world, initialSpaceCoin);
 
