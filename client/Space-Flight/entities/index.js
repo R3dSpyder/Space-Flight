@@ -11,6 +11,7 @@ import Asteroid from "./Asteroid";
 import axisGenerator from "../Utils/axisGenerator";
 import SpaceCoin from "./Space_coins";
 import Menu from "./Menu";
+import Scroll from "./Scrolls";
 // import Health from "./Health";
 
 const windowHeight = Dimensions.get("window").height;
@@ -41,6 +42,18 @@ export default restart => {
       {
         x: axisGenerator(10, windowWidth - 10),
         y: axisGenerator(-10000, -20),
+      },
+      { height: 20, width: 20 }
+    );
+  }
+
+  const scrolls = {};
+  for (let i = 1; i <= 5; i++) {
+    scrolls[`Scroll${i}`] = Scroll(
+      world,
+      {
+        x: axisGenerator(10, windowWidth - 10),
+        y: axisGenerator(-14000, -20),
       },
       { height: 20, width: 20 }
     );
@@ -85,6 +98,7 @@ export default restart => {
     Menu: Menu(world, { x: 400, y: 200 }, { height: 100, width: 100 }),
     ...asteroids,
     ...spaceCoins,
+    ...scrolls,
     // ...healthLives,
 
   };
