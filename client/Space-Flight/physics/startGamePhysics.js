@@ -10,6 +10,7 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
   const engine = entities.physics.engine;
   const rocket = entities.Rocket.body;
   const start = entities.Start.body;
+  const backdrop = entities.Backdrop.body;
   // const leaderboard = entities.Leaderboard.body;
 
   touches
@@ -37,34 +38,6 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
     if (Matter.Collision.collides(rocket, asteroid)) {
       dispatch({ type: "game_over" });
     }
-
-    //on collision with the rocket, 1 health rocket disappears
-
-    // Matter.Events.on(engine, "collisionStart", (event) => {
-    //   dispatch({ type: "Game Over" });
-    // });
-
-    // if (Matter.Collision.collides(asteroid, rocket)) {
-    //   if ("Health1" in entities) {
-    //     Matter.Body.setVelocity(entities.Health1.body, {
-    //       x: 0,
-    //       y: 1,
-    //     });
-    //     delete entities.Health1;
-    //   } else if ("Health2" in entities) {
-    //     Matter.Body.setVelocity(entities.Health2.body, {
-    //       x: 0,
-    //       y: 1,
-    //     });
-    //     delete entities.Health2;
-    //   } else if ("Health3" in entities) {
-    //     Matter.Body.setVelocity(entities.Health3.body, {
-    //       x: 0,
-    //       y: 1,
-    //     });
-    //     delete entities.Health3;
-    //   }
-    // }
   }
 
   for (let i = 1; i <= 5; i++) {
@@ -81,7 +54,7 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
   }
 
   Matter.Body.translate(start, { x: 0, y: 4 });
-  // Matter.Body.translate(leaderboard, { x: 0, y: 4 });
+  Matter.Body.translate(backdrop, { x: 0, y: 2 });
 
   Matter.Engine.update(engine, time.delta);
   return entities;
