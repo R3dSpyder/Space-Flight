@@ -28,11 +28,10 @@ const Start = (props) => {
         height: heightBody,
       }}
     >
-      <ImageBackground source={require("../assets/Cloud.png")}>
-        <Text style={{ textAlign: "center", color: "black", fontSize: 25 }}>
+
+        <Text style={{ textAlign: "center", color: "white", fontSize: 25 }}>
           START
         </Text>
-      </ImageBackground>
     </View>
   );
 };

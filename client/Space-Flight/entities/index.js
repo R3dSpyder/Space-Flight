@@ -81,7 +81,8 @@ export default restart => {
     //   { x: axisGenerator(0, windowWidth), y: -50 },
     //   { height: 25, width: 25 }
     // ),
-    Start: Start(world, { x: 200, y: 200 }, { height: 100, width: 100 }),
+    Start: Start(world, { x: 100, y: 200 }, { height: 100, width: 100 }),
+    Menu: Menu(world, { x: 400, y: 200 }, { height: 100, width: 100 }),
     ...asteroids,
     ...spaceCoins,
     // ...healthLives,
