@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Image } from "react-native";
 
-const Collectable = (props) => {
+const SpaceCoin = props => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -36,18 +36,18 @@ const Collectable = (props) => {
 };
 
 export default (world, pos, size) => {
-  const initialCollectable = Matter.Bodies.rectangle(
+  const initialSpaceCoin = Matter.Bodies.rectangle(
     pos.x,
     pos.y,
     size.width,
     size.height,
     { label: "Asteroid", inertia: Infinity, isStatic: true }
   );
-  Matter.World.add(world, initialCollectable);
+  Matter.World.add(world, initialSpaceCoin);
 
   return {
-    body: initialCollectable,
+    body: initialSpaceCoin,
     pos,
-    renderer: <Collectable />,
+    renderer: <SpaceCoin />,
   };
 };
