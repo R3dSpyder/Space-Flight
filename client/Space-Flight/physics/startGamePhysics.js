@@ -80,6 +80,19 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
     }
   }
 
+  for (let i = 1; i <= 5; i++) {
+    const Scroll = entities[`Scroll${i}`].body;
+    Matter.Body.translate(Scroll, { x: 0, y: 5 });
+
+    if (Matter.Collision.collides(rocket, Scroll)) {
+      dispatch({ type: "add_Scroll" });
+      Matter.Body.setPosition(Scroll, {
+        x: axisGenerator(10, windowWidth - 10),
+        y: axisGenerator(-10000, -20),
+      });
+    }
+  }
+
   Matter.Body.translate(start, { x: 0, y: 4 });
   // Matter.Body.translate(leaderboard, { x: 0, y: 4 });
 

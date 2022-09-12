@@ -12,6 +12,7 @@ export default function Home({ navigation }) {
   const [gameEngine, setGameEngine] = useState(null);
   const [currentPoints, setCurrentPoints] = useState(0);
   const [currSpaceCoins, setCurrSpaceCoins] = useState(0);
+  const [currScrolls, setCurrentScrolls] = useState(0);
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
@@ -37,6 +38,17 @@ export default function Home({ navigation }) {
         {currSpaceCoins}
       </Text>
       <Image source={require("../assets/SpaceCoin.png")} />
+      <Text
+        style={{
+          textAlign: "left",
+          fontSize: 20,
+          color: "white",
+          top: 20,
+        }}
+      >
+        {currScrolls}
+      </Text>
+      <Image source={require("../assets/Scroll.png")} />
       {running ? (
         <GameEngine
           ref={ref => {
@@ -57,6 +69,8 @@ export default function Home({ navigation }) {
               ? setCurrentPoints(currentPoints + 100)
               : e.type === "add_SpaceCoin"
               ? setCurrSpaceCoins(currSpaceCoins + 1)
+              : e.type === "add_Scroll"
+              ? setCurrentScrolls(currScrolls + 1)
               : running;
           }}
           style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
