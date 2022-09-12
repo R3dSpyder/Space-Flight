@@ -16,28 +16,9 @@ export default function Home({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
       {/* <Image style={{ flex: 1 }} source={require("../assets/stars.jpg")} /> */}
-      <Text
-        style={{
-          textAlign: "center",
-          fontSize: 40,
-          color: "white",
-          top: 10,
-        }}
-      >
-        {currentPoints}
-      </Text>
-      <Text
-        style={{
-          textAlign: "left",
-          fontSize: 20,
-          color: "white",
-          top: 10,
-        }}
-      >
-        {currSpaceCoins}
-      </Text>
-      <Image source={require("../assets/SpaceCoin.png")} />
+      {/* <Image source={require("../assets/SpaceCoin.png")} /> */}
       {running ? (
+      <>
         <GameEngine
           ref={ref => {
             setGameEngine(ref);
@@ -61,6 +42,27 @@ export default function Home({ navigation }) {
           }}
           style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
         ></GameEngine>
+        <Text
+        style={{
+          textAlign: "center",
+          fontSize: 40,
+          color: "white",
+          top: 50,
+        }}
+      >
+        {currentPoints}
+      </Text>
+      <Text
+        style={{
+          textAlign: "left",
+          fontSize: 20,
+          color: "white",
+          top: 50,
+        }}
+      >
+        {currSpaceCoins}
+      </Text>
+      </>
       ) : null}
       {!running ? (
         <View

@@ -22,7 +22,7 @@ const Menu = (props) => {
         height: heightBody,
       }}
     >
-      <Text style={{ color: "white", fontSize: 25 }}>LEADER</Text>
+      <Text style={{ color: "white", fontSize: 25 }}>MENU</Text>
       {/* <Text style={{ color: "white", fontSize: 25 }}>LEADER{"\n"}BOARD</Text> */}
     </View>
   );
@@ -33,11 +33,11 @@ export default (world, pos, size) => {
     label: "Menu",
     inertia: Infinity,
   });
-  Matter.World.add(world, initialLeaderBoard);
+  Matter.World.add(world, menu);
 
   return {
     body: menu,
     pos,
-    renderer: <LeaderBoard />,
+    renderer: <Menu />,
   };
 };
