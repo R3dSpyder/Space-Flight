@@ -24,7 +24,7 @@ export const Physics = (entities, { touches, time, dispatch }) => {
   }
   if (Matter.Collision.collides(rocket, menu)) {
     World.remove(engine.world, start);
-    dispatch({ type: "game_over" });
+    dispatch({ type: "visit_menu" });
   }
 
   // if (Matter.Collision.collides(rocket, leaderboard)) {

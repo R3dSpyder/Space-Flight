@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { GameEngine } from "react-native-game-engine";
 import { Physics } from "../physics/physics.js";
 import entities from "../entities/index.js";
@@ -22,6 +23,7 @@ export default function Home({ navigation }) {
   const [currSpaceCoins, setCurrSpaceCoins] = useState(0);
   const [currScrolls, setCurrentScrolls] = useState(0);
   const [currName, setCurrName] = useState("unknown");
+  const [gameOver, setGameOver] = useState(false);
 
   const postScore = (e) => {
     // do api call with currName
@@ -41,6 +43,11 @@ export default function Home({ navigation }) {
             onEvent={(e) => {
               e.type === "start_game" ? setStartGame(true) : null;
               if (e.type === "game_over") {
+                setGameOver(true);
+                setRunning(false);
+                setGameEngine(gameEngine.stop);
+              }
+              if (e.type === "visit_menu") {
                 setRunning(false);
                 setGameEngine(gameEngine.stop);
               }
@@ -62,12 +69,13 @@ export default function Home({ navigation }) {
               bottom: 0,
             }}
           ></GameEngine>
+          <StatusBar style="auto" hidden={true} />
           <Text
             style={{
               textAlign: "center",
               fontSize: 20,
               color: "white",
-              top: 50,
+              top: 15,
             }}
           >
             {currentPoints}
@@ -78,6 +86,7 @@ export default function Home({ navigation }) {
               fontSize: 20,
               color: "white",
               top: 50,
+              left: 10,
             }}
           >
             {currSpaceCoins}
@@ -89,6 +98,7 @@ export default function Home({ navigation }) {
               fontSize: 20,
               color: "white",
               top: 50,
+              left: 10,
             }}
           >
             {currScrolls}
@@ -117,17 +127,19 @@ export default function Home({ navigation }) {
             <Image source={require("../assets/SpaceCoin.png")} /> {currScrolls}
             <Image source={require("../assets/Scroll.png")} />
           </Text> */}
-          <View style={{ bottom: 100 }}>
-            <TextInput
-              placeholder="INPUT NAME FOR LEADERBOARD"
-              placeholderTextColor={"grey"}
-              style={{ fontSize: 20, color: "white", fontWeight: "bold" }}
-              onChangeText={(text) => {
-                setCurrName(text);
-              }}
-            />
-            <Button title="SUBMIT" onPress={postScore} />
-          </View>
+          {gameOver ? (
+            <View style={{ bottom: 100 }}>
+              <TextInput
+                placeholder="INPUT NAME FOR LEADERBOARD"
+                placeholderTextColor={"grey"}
+                style={{ fontSize: 20, color: "white", fontWeight: "bold" }}
+                onChangeText={(text) => {
+                  setCurrName(text);
+                }}
+              />
+              <Button title="SUBMIT" onPress={postScore} />
+            </View>
+          ) : null}
           <TouchableOpacity
             onPress={() => {
               setRunning(true);
@@ -160,21 +172,6 @@ export default function Home({ navigation }) {
               }}
             >
               LEADERBOARD
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Login");
-            }}
-          >
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: "white",
-                fontSize: 30,
-              }}
-            >
-              LOGIN
             </Text>
           </TouchableOpacity>
         </View>
