@@ -15,11 +15,11 @@ import { useContext, useEffect, useState } from "react";
 import startGamePhysics from "../physics/startGamePhysics.js";
 import { gameOverFX, collectFX, inGame } from "../sound.js";
 import { UserContext } from "../context.js";
+import { postScore } from "../api.js";
 
 export default function Home({ navigation }) {
   const [running, setRunning] = useState(true);
   const [startGame, setStartGame] = useState(false);
-  const [lives, setLives] = useState(3);
   const [gameEngine, setGameEngine] = useState(null);
   const [currentPoints, setCurrentPoints] = useState(0);
   const [currScrolls, setCurrentScrolls] = useState(0);
@@ -27,8 +27,11 @@ export default function Home({ navigation }) {
   const [gameOver, setGameOver] = useState(false);
   const { userInfo, setUserInfo } = useContext(UserContext);
 
-  const postScore = e => {
-    // do api call with currName
+
+  const handleSubmit = () => {
+    postScore(currentPoints, currName).then(() => {
+      navigation.navigate("LeaderBoard");
+    });
   };
 
   return (
@@ -36,17 +39,13 @@ export default function Home({ navigation }) {
       {running ? (
         <>
           <GameEngine
-
             ref={ref => {
-
               setGameEngine(ref);
             }}
             systems={[!startGame ? Physics : startGamePhysics]}
             entities={entities(userInfo.rocketSelected)}
             running={running}
-
             onEvent={e => {
-
               e.type === "start_game" ? inGame() && setStartGame(true) : null;
               if (e.type === "game_over") {
                 gameOverFX();
@@ -135,7 +134,7 @@ export default function Home({ navigation }) {
                   setCurrName(text);
                 }}
               />
-              <Button title="SUBMIT" onPress={postScore} />
+              <Button title="SUBMIT" onPress={handleSubmit} />
             </View>
           ) : null}
           <TouchableOpacity
