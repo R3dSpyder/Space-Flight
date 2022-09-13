@@ -13,6 +13,8 @@ import SpaceCoin from "./Space_coins";
 import Menu from "./Menu";
 import Scroll from "./Scrolls";
 import Rocket1 from "./Rocket1";
+import Rocket2 from "./Rocket2";
+import Rocket3 from "./Rocket3";
 // import Health from "./Health";
 
 const windowHeight = Dimensions.get("window").height;
@@ -74,6 +76,20 @@ export default (rocket) => {
   }
   if (rocket === 1) {
     returnObj.Rocket = Rocket1(
+      world,
+      { x: windowWidth / 2, y: windowHeight - 125 },
+      { height: 75, width: 30 }
+    );
+  }
+  if (rocket === 2) {
+    returnObj.Rocket = Rocket2(
+      world,
+      { x: windowWidth / 2, y: windowHeight - 125 },
+      { height: 75, width: 30 }
+    );
+  }
+  if (rocket === 2) {
+    returnObj.Rocket = Rocket3(
       world,
       { x: windowWidth / 2, y: windowHeight - 125 },
       { height: 75, width: 30 }
