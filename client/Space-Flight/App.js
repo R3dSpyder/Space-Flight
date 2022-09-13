@@ -10,9 +10,16 @@ import StartGame from "./components/StartGame";
 import Login from "./components/Login";
 import TopMenu from "./components/TopMenu";
 import LeaderBoard from "./components/LeaderBoard";
+import { UserContext } from "./context";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+  const [userInfo, setUserInfo] = useState({
+    coins: 0,
+    scrolls: 0,
+    rocketSelected: 1,
+    rocketsOwned: [1],
+  });
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(false);
@@ -21,19 +28,21 @@ export default function App() {
   return isLoading ? (
     <LoadingScreen />
   ) : (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          options={{ headerShown: false }}
-          component={Home}
-        />
-        <Stack.Screen name="StartGame" component={StartGame} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
-        <Stack.Screen name="TopMenu" component={TopMenu} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserContext.Provider value={{ userInfo, setUserInfo }}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            options={{ headerShown: false }}
+            component={Home}
+          />
+          <Stack.Screen name="StartGame" component={StartGame} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+          <Stack.Screen name="TopMenu" component={TopMenu} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
   );
 }
 
