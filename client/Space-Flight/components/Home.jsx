@@ -13,6 +13,7 @@ import { Physics } from "../physics/physics.js";
 import entities from "../entities/index.js";
 import { useEffect, useState } from "react";
 import startGamePhysics from "../physics/startGamePhysics.js";
+import { gameOverFX, collectFX, inGame } from "../sound.js";
 
 export default function Home({ navigation }) {
   const [running, setRunning] = useState(true);
@@ -41,8 +42,9 @@ export default function Home({ navigation }) {
             entities={entities()}
             running={running}
             onEvent={(e) => {
-              e.type === "start_game" ? setStartGame(true) : null;
+              e.type === "start_game" ? inGame() && setStartGame(true) : null;
               if (e.type === "game_over") {
+                gameOverFX();
                 setGameOver(true);
                 setRunning(false);
                 setGameEngine(gameEngine.stop);
@@ -54,11 +56,11 @@ export default function Home({ navigation }) {
               e.type === "leaderboard"
                 ? navigation.navigate("LeaderBoard")
                 : e.type === "points"
-                ? setCurrentPoints(currentPoints + 100)
+                ? setCurrentPoints(currentPoints + 100) // add sound here hopefully
                 : e.type === "add_SpaceCoin"
-                ? setCurrSpaceCoins(currSpaceCoins + 1)
+                ? collectFX() && setCurrSpaceCoins(currSpaceCoins + 1)
                 : e.type === "add_Scroll"
-                ? setCurrentScrolls(currScrolls + 1)
+                ? collectFX() && setCurrentScrolls(currScrolls + 1)
                 : running;
             }}
             style={{
