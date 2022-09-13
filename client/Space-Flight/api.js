@@ -88,7 +88,7 @@ export function postScore(score, username) {
 export function postUser(username) {
   if (username) {
     try {
-      let queryString = `https://space-flight-backend-nc.herokuapp.com/api/user`;
+      let queryString = `https://space-flight-backend-nc.herokuapp.com/api/users`;
       return axios.then((response) => {
         if (response.data.error) {
           throw response.data.error;
