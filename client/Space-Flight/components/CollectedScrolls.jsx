@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { useContext } from "react";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { planetData } from "../api";
+import { UserContext } from "../context";
 
 const CollectedScrolls = () => {
+  const { userInfo } = useContext(UserContext);
   const listOfPlanets = planetData["_3"];
+
+  console.log(userInfo);
 
   return (
     <View
@@ -11,12 +15,13 @@ const CollectedScrolls = () => {
         alignItems: "center",
         flex: 1,
         justifyContent: "center",
+        // backgroundColor: "black",
       }}
     >
       <ScrollView>
         {listOfPlanets.map((planet, index) => {
           return (
-            <View key={index}>
+            <View style={styles.unlockedScroll} key={index}>
               <Text>{planet.englishName}</Text>
               <Text>Discovered by: {planet.discoveredBy}</Text>
               <Text>Discovery date: {planet.discoveryDate}</Text>
@@ -37,5 +42,19 @@ const CollectedScrolls = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  unlockedScroll: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 3,
+    margin: 5,
+    padding: 5,
+    backgroundColor: "white",
+  },
+});
 
 export default CollectedScrolls;

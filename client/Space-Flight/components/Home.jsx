@@ -27,7 +27,7 @@ export default function Home({ navigation }) {
   const [gameOver, setGameOver] = useState(false);
   const { userInfo, setUserInfo } = useContext(UserContext);
 
-  const postScore = (e) => {
+  const postScore = e => {
     // do api call with currName
   };
 
@@ -36,15 +36,13 @@ export default function Home({ navigation }) {
       {running ? (
         <>
           <GameEngine
-          
-            ref={(ref) => {
+            ref={ref => {
               setGameEngine(ref);
             }}
             systems={[!startGame ? Physics : startGamePhysics]}
             entities={entities()}
             running={running}
-            
-            onEvent={(e) => {
+            onEvent={e => {
               e.type === "start_game" ? inGame() && setStartGame(true) : null;
               if (e.type === "game_over") {
                 gameOverFX();
@@ -59,17 +57,16 @@ export default function Home({ navigation }) {
               e.type === "leaderboard"
                 ? navigation.navigate("LeaderBoard")
                 : e.type === "points"
-
                 ? setCurrentPoints(currentPoints + 100) // add sound here hopefully
                 : e.type === "add_SpaceCoin"
                 ? collectFX() &&
-                  setUserInfo((current) => ({
+                  setUserInfo(current => ({
                     ...current,
                     coins: userInfo.coins + 1,
                   }))
                 : e.type === "add_Scroll"
                 ? collectFX() &&
-                  setUserInfo((current) => ({
+                  setUserInfo(current => ({
                     ...current,
                     scrolls: userInfo.scrolls + 1,
                   }))
@@ -130,7 +127,7 @@ export default function Home({ navigation }) {
                 placeholder="INPUT NAME FOR LEADERBOARD"
                 placeholderTextColor={"grey"}
                 style={{ fontSize: 20, color: "white", fontWeight: "bold" }}
-                onChangeText={(text) => {
+                onChangeText={text => {
                   setCurrName(text);
                 }}
               />
