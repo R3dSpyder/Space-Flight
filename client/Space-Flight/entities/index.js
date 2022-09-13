@@ -17,7 +17,7 @@ import Scroll from "./Scrolls";
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
-export default restart => {
+export default (restart) => {
   let engine = Matter.Engine.create({ enableSleeping: false });
 
   let world = engine.world;
@@ -75,11 +75,16 @@ export default restart => {
     Backdrop: Backdrop(world, { x: 0, y: -19000 }, { height: 100, width: 200 }),
     Rocket: Rocket(
       world,
-      { x: windowWidth/2 , y: windowHeight - 125 },
+      { x: windowWidth / 2, y: windowHeight - 125 },
       { height: 75, width: 30 }
     ),
 
-    Ground: Ground(world, "green", {x:windowWidth/2 , y: windowHeight - 125}, {height:200, width: windowWidth}),
+    Ground: Ground(
+      world,
+      "green",
+      { x: windowWidth / 2, y: windowHeight - 125 },
+      { height: 200, width: windowWidth }
+    ),
 
     LeftWall: Wall(
       world,
@@ -96,12 +101,19 @@ export default restart => {
     //   { x: axisGenerator(0, windowWidth), y: -50 },
     //   { height: 25, width: 25 }
     // ),
-    Start: Start(world, { x: windowWidth/3, y: 200 }, { height: 100, width: 100 }),
-    Menu: Menu(world, { x: windowWidth/1.5, y: 200 }, { height: 100, width: 100 }),
+    Start: Start(
+      world,
+      { x: windowWidth / 3, y: 200 },
+      { height: 100, width: 100 }
+    ),
+    Menu: Menu(
+      world,
+      { x: windowWidth / 1.5, y: 200 },
+      { height: 100, width: 100 }
+    ),
     ...asteroids,
     ...spaceCoins,
     ...scrolls,
     // ...healthLives,
-
   };
 };

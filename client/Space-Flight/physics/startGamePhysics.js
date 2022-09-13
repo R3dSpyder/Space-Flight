@@ -17,8 +17,8 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
   // const leaderboard = entities.Leaderboard.body;
 
   touches
-    .filter(t => t.type === "move")
-    .forEach(t => {
+    .filter((t) => t.type === "move")
+    .forEach((t) => {
       Matter.Body.setVelocity(rocket, {
         x: t.delta.pageX,
         y: t.delta.pageY,
@@ -27,10 +27,10 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
   // const ground = entities.Ground.body;
   for (let i = 1; i <= 10; i++) {
     const asteroid = entities[`Asteroid${i}`].body;
-    Matter.Body.translate(asteroid, { x: 0, y: 4 });
+    Matter.Body.translate(asteroid, { x: 0, y: 5 });
 
     //reset position when asteroids leave the page
-    if (asteroid.bounds.max.y > windowHeight) {
+    if (asteroid.bounds.min.y > windowHeight) {
       Matter.Body.setPosition(asteroid, {
         x: axisGenerator(10, windowWidth - 10),
         y: 0,
@@ -45,13 +45,13 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
 
   for (let i = 1; i <= 5; i++) {
     const SpaceCoin = entities[`SpaceCoin${i}`].body;
-    Matter.Body.translate(SpaceCoin, { x: 0, y: 5 });
+    Matter.Body.translate(SpaceCoin, { x: 0, y: 6 });
 
     if (Matter.Collision.collides(rocket, SpaceCoin)) {
       dispatch({ type: "add_SpaceCoin" });
       Matter.Body.setPosition(SpaceCoin, {
         x: axisGenerator(10, windowWidth - 10),
-        y: axisGenerator(-10000, -20),
+        y: axisGenerator(-1000, -20),
       });
     }
   }

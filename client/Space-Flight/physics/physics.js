@@ -1,5 +1,6 @@
 import Matter, { World } from "matter-js";
 import { Dimensions } from "react-native";
+import * as Haptics from "expo-haptics";
 
 export const Physics = (entities, { touches, time, dispatch }) => {
   let engine = entities.physics.engine;
@@ -13,6 +14,7 @@ export const Physics = (entities, { touches, time, dispatch }) => {
   touches
     .filter((t) => t.type === "move")
     .forEach((t) => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       Matter.Body.setVelocity(rocket, {
         x: t.delta.pageX,
         y: t.delta.pageY,
@@ -24,20 +26,10 @@ export const Physics = (entities, { touches, time, dispatch }) => {
   }
   if (Matter.Collision.collides(rocket, menu)) {
     World.remove(engine.world, start);
-    dispatch({ type: "game_over" });
+    dispatch({ type: "visit_menu" });
   }
-
-  // if (Matter.Collision.collides(rocket, leaderboard)) {
-  //   World.remove(engine.world, start);
-  //   dispatch({ type: "leaderboard" });
-  // }
 
   Matter.Body.rotate(asteroid, 0.25);
-
-  if (entities.Rocket.body.position.y < 0) {
-    dispatch({ type: "start game" });
-    // use this for something like this (() => navigation.navigate("Login"))()
-  }
   Matter.Engine.update(engine, time.delta);
   return entities;
 };

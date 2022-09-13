@@ -1,9 +1,20 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  TextInput,
+  Button,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { GameEngine } from "react-native-game-engine";
 import { Physics } from "../physics/physics.js";
 import entities from "../entities/index.js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import startGamePhysics from "../physics/startGamePhysics.js";
+import { gameOverFX, collectFX, inGame } from "../sound.js";
+import { UserContext } from "../context.js";
 
 export default function Home({ navigation }) {
   const [running, setRunning] = useState(true);
@@ -11,69 +22,57 @@ export default function Home({ navigation }) {
   const [lives, setLives] = useState(3);
   const [gameEngine, setGameEngine] = useState(null);
   const [currentPoints, setCurrentPoints] = useState(0);
-  const [currSpaceCoins, setCurrSpaceCoins] = useState(0);
   const [currScrolls, setCurrentScrolls] = useState(0);
+  const [currName, setCurrName] = useState("unknown");
+  const [gameOver, setGameOver] = useState(false);
+  const { userInfo, setUserInfo } = useContext(UserContext);
+
+  const postScore = (e) => {
+    // do api call with currName
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
-      {/* <Image style={{ flex: 1 }} source={require("../assets/stars.jpg")} /> */}
-
-      <Text
-        style={{
-          textAlign: "center",
-          fontSize: 40,
-          color: "white",
-          top: 10,
-        }}
-      >
-        {currentPoints}
-      </Text>
-      <Text
-        style={{
-          textAlign: "left",
-          fontSize: 20,
-          color: "white",
-          top: 10,
-        }}
-      >
-        {currSpaceCoins}
-      </Text>
-      <Image source={require("../assets/SpaceCoin.png")} />
-      <Text
-        style={{
-          textAlign: "left",
-          fontSize: 20,
-          color: "white",
-          top: 20,
-        }}
-      >
-        {currScrolls}
-      </Text>
-      <Image source={require("../assets/Scroll.png")} />
-
       {running ? (
         <>
           <GameEngine
-            ref={ref => {
+          
+            ref={(ref) => {
               setGameEngine(ref);
             }}
             systems={[!startGame ? Physics : startGamePhysics]}
             entities={entities()}
             running={running}
-            onEvent={e => {
-              e.type === "start_game" ? setStartGame(true) : null;
+            
+            onEvent={(e) => {
+              e.type === "start_game" ? inGame() && setStartGame(true) : null;
               if (e.type === "game_over") {
+                gameOverFX();
+                setGameOver(true);
+                setRunning(false);
+                setGameEngine(gameEngine.stop);
+              }
+              if (e.type === "visit_menu") {
                 setRunning(false);
                 setGameEngine(gameEngine.stop);
               }
               e.type === "leaderboard"
                 ? navigation.navigate("LeaderBoard")
                 : e.type === "points"
-                ? setCurrentPoints(currentPoints + 100)
+
+                ? setCurrentPoints(currentPoints + 100) // add sound here hopefully
                 : e.type === "add_SpaceCoin"
-                ? setCurrSpaceCoins(currSpaceCoins + 1)
+                ? collectFX() &&
+                  setUserInfo((current) => ({
+                    ...current,
+                    coins: userInfo.coins + 1,
+                  }))
                 : e.type === "add_Scroll"
-                ? setCurrentScrolls(currScrolls + 1)
+                ? collectFX() &&
+                  setUserInfo((current) => ({
+                    ...current,
+                    scrolls: userInfo.scrolls + 1,
+                  }))
                 : running;
             }}
             style={{
@@ -84,10 +83,11 @@ export default function Home({ navigation }) {
               bottom: 0,
             }}
           ></GameEngine>
+          <StatusBar style="auto" hidden={true} />
           <Text
             style={{
               textAlign: "center",
-              fontSize: 40,
+              fontSize: 50,
               color: "white",
               top: 50,
             }}
@@ -100,16 +100,43 @@ export default function Home({ navigation }) {
               fontSize: 20,
               color: "white",
               top: 50,
+              left: 10,
             }}
           >
-            {currSpaceCoins}
+            {userInfo.coins}
           </Text>
+          <Image source={require("../assets/SpaceCoin.png")} />
+          <Text
+            style={{
+              textAlign: "left",
+              fontSize: 20,
+              color: "white",
+              top: 50,
+              left: 10,
+            }}
+          >
+            {userInfo.scrolls}
+          </Text>
+          <Image source={require("../assets/Scroll.png")} />
         </>
       ) : null}
       {!running ? (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
+          {gameOver ? (
+            <View style={{ bottom: 100 }}>
+              <TextInput
+                placeholder="INPUT NAME FOR LEADERBOARD"
+                placeholderTextColor={"grey"}
+                style={{ fontSize: 20, color: "white", fontWeight: "bold" }}
+                onChangeText={(text) => {
+                  setCurrName(text);
+                }}
+              />
+              <Button title="SUBMIT" onPress={postScore} />
+            </View>
+          ) : null}
           <TouchableOpacity
             onPress={() => {
               setRunning(true);
@@ -164,7 +191,7 @@ export default function Home({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Login");
+              navigation.navigate("RocketSelector");
             }}
           >
             <Text
@@ -172,9 +199,10 @@ export default function Home({ navigation }) {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: 30,
+                top: 5,
               }}
             >
-              LOGIN
+              ROCKET SELECTOR
             </Text>
           </TouchableOpacity>
         </View>
