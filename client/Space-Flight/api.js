@@ -105,7 +105,7 @@ function getPlanets() {
 }
 
 export const planetData = getPlanets().then(response => {
-  return response.data.bodies.map((planet, index) => {
+  return response.data.bodies.map(planet => {
     return planet;
   });
 });
