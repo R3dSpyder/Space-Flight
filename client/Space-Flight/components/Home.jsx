@@ -36,13 +36,17 @@ export default function Home({ navigation }) {
       {running ? (
         <>
           <GameEngine
+
             ref={ref => {
+
               setGameEngine(ref);
             }}
             systems={[!startGame ? Physics : startGamePhysics]}
-            entities={entities()}
+            entities={entities(userInfo.rocketSelected)}
             running={running}
+
             onEvent={e => {
+
               e.type === "start_game" ? inGame() && setStartGame(true) : null;
               if (e.type === "game_over") {
                 gameOverFX();
@@ -152,24 +156,6 @@ export default function Home({ navigation }) {
               RESTART GAME
             </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("CollectedScrolls");
-            }}
-          >
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: "white",
-                fontSize: 30,
-                bottom: 10,
-              }}
-            >
-              SCROLLS
-            </Text>
-          </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("LeaderBoard");
