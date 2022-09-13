@@ -11,8 +11,10 @@ import { StatusBar } from "expo-status-bar";
 import { GameEngine } from "react-native-game-engine";
 import { Physics } from "../physics/physics.js";
 import entities from "../entities/index.js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import startGamePhysics from "../physics/startGamePhysics.js";
+import { gameOverFX, collectFX, inGame } from "../sound.js";
+import { UserContext } from "../context.js";
 
 export default function Home({ navigation }) {
   const [running, setRunning] = useState(true);
@@ -20,10 +22,10 @@ export default function Home({ navigation }) {
   const [lives, setLives] = useState(3);
   const [gameEngine, setGameEngine] = useState(null);
   const [currentPoints, setCurrentPoints] = useState(0);
-  const [currSpaceCoins, setCurrSpaceCoins] = useState(0);
   const [currScrolls, setCurrentScrolls] = useState(0);
   const [currName, setCurrName] = useState("unknown");
   const [gameOver, setGameOver] = useState(false);
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   const postScore = (e) => {
     // do api call with currName
@@ -41,8 +43,9 @@ export default function Home({ navigation }) {
             entities={entities()}
             running={running}
             onEvent={(e) => {
-              e.type === "start_game" ? setStartGame(true) : null;
+              e.type === "start_game" ? inGame() && setStartGame(true) : null;
               if (e.type === "game_over") {
+                gameOverFX();
                 setGameOver(true);
                 setRunning(false);
                 setGameEngine(gameEngine.stop);
@@ -54,11 +57,19 @@ export default function Home({ navigation }) {
               e.type === "leaderboard"
                 ? navigation.navigate("LeaderBoard")
                 : e.type === "points"
-                ? setCurrentPoints(currentPoints + 100)
+                ? setCurrentPoints(currentPoints + 100) // add sound here hopefully
                 : e.type === "add_SpaceCoin"
-                ? setCurrSpaceCoins(currSpaceCoins + 1)
+                ? collectFX() &&
+                  setUserInfo((current) => ({
+                    ...current,
+                    coins: userInfo.coins + 1,
+                  }))
                 : e.type === "add_Scroll"
-                ? setCurrentScrolls(currScrolls + 1)
+                ? collectFX() &&
+                  setUserInfo((current) => ({
+                    ...current,
+                    scrolls: userInfo.scrolls + 1,
+                  }))
                 : running;
             }}
             style={{
@@ -73,9 +84,9 @@ export default function Home({ navigation }) {
           <Text
             style={{
               textAlign: "center",
-              fontSize: 20,
+              fontSize: 50,
               color: "white",
-              top: 15,
+              top: 50,
             }}
           >
             {currentPoints}
@@ -89,7 +100,7 @@ export default function Home({ navigation }) {
               left: 10,
             }}
           >
-            {currSpaceCoins}
+            {userInfo.coins}
           </Text>
           <Image source={require("../assets/SpaceCoin.png")} />
           <Text
@@ -101,7 +112,7 @@ export default function Home({ navigation }) {
               left: 10,
             }}
           >
-            {currScrolls}
+            {userInfo.scrolls}
           </Text>
           <Image source={require("../assets/Scroll.png")} />
         </>
@@ -110,23 +121,6 @@ export default function Home({ navigation }) {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          {/* <Text
-            style={{
-              textAlign: "center",
-              fontSize: 20,
-              color: "white",
-              top: 50,
-            }}
-          >
-            {currentPoints}{" "}
-            <Image
-              style={{ height: 20, width: 20 }}
-              source={require("../assets/asteroid.png")}
-            />{" "}
-            {currSpaceCoins}{" "}
-            <Image source={require("../assets/SpaceCoin.png")} /> {currScrolls}
-            <Image source={require("../assets/Scroll.png")} />
-          </Text> */}
           {gameOver ? (
             <View style={{ bottom: 100 }}>
               <TextInput

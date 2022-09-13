@@ -11,9 +11,17 @@ import Login from "./components/Login";
 import TopMenu from "./components/TopMenu";
 import LeaderBoard from "./components/LeaderBoard";
 import RocketSelector from "./components/RocketSelector";
+import { UserContext } from "./context";
+
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+  const [userInfo, setUserInfo] = useState({
+    coins: 0,
+    scrolls: 0,
+    rocketSelected: 1,
+    rocketsOwned: [1],
+  });
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(false);
@@ -22,6 +30,8 @@ export default function App() {
   return isLoading ? (
     <LoadingScreen />
   ) : (
+  
+  <UserContext.Provider value={{ userInfo, setUserInfo }}>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -34,6 +44,7 @@ export default function App() {
         <Stack.Screen name="TopMenu" component={TopMenu} />
       </Stack.Navigator>
     </NavigationContainer>
+      </UserContext.Provider>
   );
 }
 
