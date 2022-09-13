@@ -10,7 +10,9 @@ import StartGame from "./components/StartGame";
 import Login from "./components/Login";
 import TopMenu from "./components/TopMenu";
 import LeaderBoard from "./components/LeaderBoard";
+import RocketSelector from "./components/RocketSelector";
 import { UserContext } from "./context";
+
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -28,21 +30,21 @@ export default function App() {
   return isLoading ? (
     <LoadingScreen />
   ) : (
-    <UserContext.Provider value={{ userInfo, setUserInfo }}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            options={{ headerShown: false }}
-            component={Home}
-          />
-          <Stack.Screen name="StartGame" component={StartGame} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
-          <Stack.Screen name="TopMenu" component={TopMenu} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </UserContext.Provider>
+  
+  <UserContext.Provider value={{ userInfo, setUserInfo }}>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          options={{ headerShown: false }}
+          component={Home}
+        />
+        <Stack.Screen name="RocketSelector" component={RocketSelector} />
+        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+        <Stack.Screen name="TopMenu" component={TopMenu} />
+      </Stack.Navigator>
+    </NavigationContainer>
+      </UserContext.Provider>
   );
 }
 
