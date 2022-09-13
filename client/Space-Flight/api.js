@@ -4,8 +4,10 @@ import axios from "axios";
 export function getLeaderBoard(limit = 10, direction = "DESC") {
   let queryString = `https://space-flight-backend-nc.herokuapp.com/api/scores?limit=${limit}&direction=${direction}`;
 
+
   try {
     return axios.get(queryString).then((response) => {
+
       if (response.data.error) {
         throw response.data.error;
       } else {
@@ -23,6 +25,7 @@ export function getPersonalScores(username, limit = 10, direction = "DESC") {
     let queryString = `https://space-flight-backend-nc.herokuapp.com/api/scores/userScores/${user_id}?limit=${limit}&direction =${direction}`;
     try {
       return axios.get(queryString).then((response) => {
+
         if (response.data.error) {
           throw response.data.error;
         } else {
@@ -43,9 +46,9 @@ export function getPersonalScores(username, limit = 10, direction = "DESC") {
 //used to get a list of known users
 export function getUsers(username = null, limit = 10, direction = "DESC") {
   let queryString = `https://space-flight-backend-nc.herokuapp.com/api/users?username=${username}&limit=${limit}&direction=${direction}`;
-
   try {
     return axios.get(queryString).then((response) => {
+
       if (response.data.error) {
         throw response.data.error;
       } else {
@@ -82,6 +85,7 @@ export function postScore(score, username) {
   } else {
     throw new Error("You have to prvide both score and username:", error);
   }
+
 }
 
 // used to make a new user in the database - without posting a score.
@@ -90,11 +94,13 @@ export function postUser(username) {
     try {
       let queryString = `https://space-flight-backend-nc.herokuapp.com/api/users`;
       return axios.then((response) => {
+
         if (response.data.error) {
           throw response.data.error;
         } else {
           return response.data.putUser;
         }
+
       });
     } catch (error) {
       throw new Error("post failed:", error);
@@ -103,3 +109,21 @@ export function postUser(username) {
     throw new Error("You need to provide a username");
   }
 }
+
+// Space facts API calls
+
+function getPlanets() {
+  let queryString = `https://api.le-systeme-solaire.net/rest/bodies?filter[]=isPlanet,eq,true`;
+  return axios
+    .get(queryString)
+    .then(response => {
+      return response;
+    })
+    .catch(err => console.log(err));
+}
+
+export const planetData = getPlanets().then(response => {
+  return response.data.bodies.map(planet => {
+    return planet;
+  });
+});
