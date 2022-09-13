@@ -14,7 +14,7 @@ import entities from "../entities/index.js";
 import { useContext, useEffect, useState } from "react";
 import startGamePhysics from "../physics/startGamePhysics.js";
 import { gameOverFX, collectFX, inGame } from "../sound.js";
-import { CoinContext } from "../context.js";
+import { UserContext } from "../context.js";
 
 export default function Home({ navigation }) {
   const [running, setRunning] = useState(true);
@@ -25,7 +25,7 @@ export default function Home({ navigation }) {
   const [currScrolls, setCurrentScrolls] = useState(0);
   const [currName, setCurrName] = useState("unknown");
   const [gameOver, setGameOver] = useState(false);
-  const { coins, setCoins } = useContext(CoinContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   const postScore = (e) => {
     // do api call with currName
@@ -59,9 +59,17 @@ export default function Home({ navigation }) {
                 : e.type === "points"
                 ? setCurrentPoints(currentPoints + 100) // add sound here hopefully
                 : e.type === "add_SpaceCoin"
-                ? collectFX() && setCoins(coins + 1)
+                ? collectFX() &&
+                  setUserInfo((current) => ({
+                    ...current,
+                    coins: userInfo.coins + 1,
+                  }))
                 : e.type === "add_Scroll"
-                ? collectFX() && setCurrentScrolls(currScrolls + 1)
+                ? collectFX() &&
+                  setUserInfo((current) => ({
+                    ...current,
+                    scrolls: userInfo.scrolls + 1,
+                  }))
                 : running;
             }}
             style={{
@@ -76,9 +84,9 @@ export default function Home({ navigation }) {
           <Text
             style={{
               textAlign: "center",
-              fontSize: 20,
+              fontSize: 50,
               color: "white",
-              top: 15,
+              top: 50,
             }}
           >
             {currentPoints}
@@ -92,7 +100,7 @@ export default function Home({ navigation }) {
               left: 10,
             }}
           >
-            {coins}
+            {userInfo.coins}
           </Text>
           <Image source={require("../assets/SpaceCoin.png")} />
           <Text
@@ -104,7 +112,7 @@ export default function Home({ navigation }) {
               left: 10,
             }}
           >
-            {currScrolls}
+            {userInfo.scrolls}
           </Text>
           <Image source={require("../assets/Scroll.png")} />
         </>

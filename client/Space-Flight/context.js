@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const CoinContext = createContext(0);
+export const UserContext = createContext({});
