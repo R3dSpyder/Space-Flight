@@ -142,7 +142,7 @@ export default function Home({ navigation }) {
                 bottom: 10,
               }}
             >
-              Collected Scrolls
+              SCROLLS
             </Text>
           </TouchableOpacity>
 

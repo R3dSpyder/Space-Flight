@@ -94,7 +94,18 @@ export function postUser(username) {
 
 // Space facts API calls
 
-export function getPlanetByName(planet) {
-  let queryString = `https://api.le-systeme-solaire.net/rest/bodies/${planet}`;
-  return axios.get(queryString).then(response => response);
+function getPlanets() {
+  let queryString = `https://api.le-systeme-solaire.net/rest/bodies?filter[]=isPlanet,eq,true`;
+  return axios
+    .get(queryString)
+    .then(response => {
+      return response;
+    })
+    .catch(err => console.log(err));
 }
+
+export const planetData = getPlanets().then(response => {
+  return response.data.bodies.map((planet, index) => {
+    return planet;
+  });
+});
