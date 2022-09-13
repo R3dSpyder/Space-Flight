@@ -174,6 +174,22 @@ export default function Home({ navigation }) {
               LEADERBOARD
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("RocketSelector");
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "white",
+                fontSize: 30,
+                top: 5,
+              }}
+            >
+              ROCKET SELECTOR
+            </Text>
+          </TouchableOpacity>
         </View>
       ) : null}
     </View>
