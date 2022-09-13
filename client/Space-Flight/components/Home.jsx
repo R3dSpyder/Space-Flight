@@ -36,14 +36,12 @@ export default function Home({ navigation }) {
       {running ? (
         <>
           <GameEngine
-          
             ref={(ref) => {
               setGameEngine(ref);
             }}
             systems={[!startGame ? Physics : startGamePhysics]}
-            entities={entities()}
+            entities={entities(userInfo.rocketSelected)}
             running={running}
-            
             onEvent={(e) => {
               e.type === "start_game" ? inGame() && setStartGame(true) : null;
               if (e.type === "game_over") {
@@ -59,7 +57,6 @@ export default function Home({ navigation }) {
               e.type === "leaderboard"
                 ? navigation.navigate("LeaderBoard")
                 : e.type === "points"
-
                 ? setCurrentPoints(currentPoints + 100) // add sound here hopefully
                 : e.type === "add_SpaceCoin"
                 ? collectFX() &&
@@ -155,24 +152,6 @@ export default function Home({ navigation }) {
               RESTART GAME
             </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("CollectedScrolls");
-            }}
-          >
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: "white",
-                fontSize: 30,
-                bottom: 10,
-              }}
-            >
-              SCROLLS
-            </Text>
-          </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("LeaderBoard");

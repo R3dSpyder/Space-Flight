@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Image } from "react-native";
 
-const Rocket = (props) => {
+const Rocket0 = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -29,7 +29,7 @@ const Rocket = (props) => {
           backgroundColor: "transparent",
         }}
         resizeMode="stretch"
-        source={require("../assets/rocket.png")}
+        source={require("../assets/rockets/spaceship0.png")}
       ></Image>
     </View>
   );
@@ -48,6 +48,6 @@ export default (world, pos, size) => {
   return {
     body: initialRocket,
     pos,
-    renderer: <Rocket />,
+    renderer: <Rocket0 />,
   };
 };

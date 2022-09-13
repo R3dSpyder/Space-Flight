@@ -19,8 +19,8 @@ export default function App() {
   const [userInfo, setUserInfo] = useState({
     coins: 0,
     scrolls: 0,
-    rocketSelected: 1,
-    rocketsOwned: [1],
+    rocketSelected: 0,
+    rocketsOwned: [0],
   });
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -30,22 +30,21 @@ export default function App() {
   return isLoading ? (
     <LoadingScreen />
   ) : (
-  
-  <UserContext.Provider value={{ userInfo, setUserInfo }}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          options={{ headerShown: false }}
-          component={Home}
-        />
-        <Stack.Screen name="RocketSelector" component={RocketSelector} />
-        <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
-        <Stack.Screen name="TopMenu" component={TopMenu} />
-        <Stack.Screen name="CollectedScrolls" component={CollectedScrolls} />
-      </Stack.Navigator>
-    </NavigationContainer>
-      </UserContext.Provider>
+    <UserContext.Provider value={{ userInfo, setUserInfo }}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            options={{ headerShown: false }}
+            component={Home}
+          />
+          <Stack.Screen name="RocketSelector" component={RocketSelector} />
+          <Stack.Screen name="LeaderBoard" component={LeaderBoard} />
+          <Stack.Screen name="TopMenu" component={TopMenu} />
+          <Stack.Screen name="CollectedScrolls" component={CollectedScrolls} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
   );
 }
 
