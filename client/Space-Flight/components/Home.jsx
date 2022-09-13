@@ -27,11 +27,11 @@ export default function Home({ navigation }) {
   const [gameOver, setGameOver] = useState(false);
   const { userInfo, setUserInfo } = useContext(UserContext);
 
+
   const handleSubmit = () => {
     postScore(currentPoints, currName).then(() => {
       navigation.navigate("LeaderBoard");
     });
-
   };
 
   return (
@@ -43,7 +43,7 @@ export default function Home({ navigation }) {
               setGameEngine(ref);
             }}
             systems={[!startGame ? Physics : startGamePhysics]}
-            entities={entities()}
+            entities={entities(userInfo.rocketSelected)}
             running={running}
             onEvent={e => {
               e.type === "start_game" ? inGame() && setStartGame(true) : null;
@@ -155,24 +155,6 @@ export default function Home({ navigation }) {
               RESTART GAME
             </Text>
           </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("CollectedScrolls");
-            }}
-          >
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: "white",
-                fontSize: 30,
-                bottom: 10,
-              }}
-            >
-              SCROLLS
-            </Text>
-          </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("LeaderBoard");

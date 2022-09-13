@@ -1,6 +1,6 @@
 import Matter from "matter-js";
 import Ground from "./Ground";
-import Rocket from "./Rocket";
+import Rocket0 from "./Rocket0";
 import { Dimensions } from "react-native";
 import Title from "./Title";
 import Wall from "./Wall";
@@ -12,12 +12,15 @@ import axisGenerator from "../Utils/axisGenerator";
 import SpaceCoin from "./Space_coins";
 import Menu from "./Menu";
 import Scroll from "./Scrolls";
+import Rocket1 from "./Rocket1";
+import Rocket2 from "./Rocket2";
+import Rocket3 from "./Rocket3";
 // import Health from "./Health";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
-export default (restart) => {
+export default (rocket) => {
   let engine = Matter.Engine.create({ enableSleeping: false });
 
   let world = engine.world;
@@ -58,27 +61,41 @@ export default (restart) => {
       { height: 20, width: 20 }
     );
   }
-
-  // const healthLives = {};
-  // let x = 100;
-  // for (let i = 1; i <= 3; i++) {
-  //   healthLives[`Health${i}`] = Health(
-  //     world,
-  //     { x: windowWidth - x, y: windowHeight - 75 },
-  //     { height: 30, width: 25 }
-  //   );
-  //   x -= 40;
-  // }
-
-  return {
+  // using return object and Object.assign lets use layer the entities correctly
+  const returnObj = {
     physics: { engine, world },
     Backdrop: Backdrop(world, { x: 0, y: -19000 }, { height: 100, width: 200 }),
-    Rocket: Rocket(
+  };
+
+  if (rocket === 0) {
+    returnObj.Rocket = Rocket0(
       world,
       { x: windowWidth / 2, y: windowHeight - 125 },
       { height: 75, width: 30 }
-    ),
-
+    );
+  }
+  if (rocket === 1) {
+    returnObj.Rocket = Rocket1(
+      world,
+      { x: windowWidth / 2, y: windowHeight - 125 },
+      { height: 75, width: 30 }
+    );
+  }
+  if (rocket === 2) {
+    returnObj.Rocket = Rocket2(
+      world,
+      { x: windowWidth / 2, y: windowHeight - 125 },
+      { height: 75, width: 30 }
+    );
+  }
+  if (rocket === 2) {
+    returnObj.Rocket = Rocket3(
+      world,
+      { x: windowWidth / 2, y: windowHeight - 125 },
+      { height: 75, width: 30 }
+    );
+  }
+  Object.assign(returnObj, {
     Ground: Ground(
       world,
       "green",
@@ -96,11 +113,6 @@ export default (restart) => {
       { x: windowWidth, y: windowHeight / 2 },
       { height: windowHeight, width: 10 }
     ),
-    // Collectable: Collectable(
-    //   world,
-    //   { x: axisGenerator(0, windowWidth), y: -50 },
-    //   { height: 25, width: 25 }
-    // ),
     Start: Start(
       world,
       { x: windowWidth / 3, y: 200 },
@@ -114,6 +126,7 @@ export default (restart) => {
     ...asteroids,
     ...spaceCoins,
     ...scrolls,
-    // ...healthLives,
-  };
+  });
+
+  return returnObj;
 };
