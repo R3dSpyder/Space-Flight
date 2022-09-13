@@ -11,9 +11,10 @@ import { StatusBar } from "expo-status-bar";
 import { GameEngine } from "react-native-game-engine";
 import { Physics } from "../physics/physics.js";
 import entities from "../entities/index.js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import startGamePhysics from "../physics/startGamePhysics.js";
 import { gameOverFX, collectFX, inGame } from "../sound.js";
+import { CoinContext } from "../context.js";
 
 export default function Home({ navigation }) {
   const [running, setRunning] = useState(true);
@@ -21,10 +22,10 @@ export default function Home({ navigation }) {
   const [lives, setLives] = useState(3);
   const [gameEngine, setGameEngine] = useState(null);
   const [currentPoints, setCurrentPoints] = useState(0);
-  const [currSpaceCoins, setCurrSpaceCoins] = useState(0);
   const [currScrolls, setCurrentScrolls] = useState(0);
   const [currName, setCurrName] = useState("unknown");
   const [gameOver, setGameOver] = useState(false);
+  const { coins, setCoins } = useContext(CoinContext);
 
   const postScore = (e) => {
     // do api call with currName
@@ -58,7 +59,7 @@ export default function Home({ navigation }) {
                 : e.type === "points"
                 ? setCurrentPoints(currentPoints + 100) // add sound here hopefully
                 : e.type === "add_SpaceCoin"
-                ? collectFX() && setCurrSpaceCoins(currSpaceCoins + 1)
+                ? collectFX() && setCoins(coins + 1)
                 : e.type === "add_Scroll"
                 ? collectFX() && setCurrentScrolls(currScrolls + 1)
                 : running;
@@ -91,7 +92,7 @@ export default function Home({ navigation }) {
               left: 10,
             }}
           >
-            {currSpaceCoins}
+            {coins}
           </Text>
           <Image source={require("../assets/SpaceCoin.png")} />
           <Text
@@ -112,23 +113,6 @@ export default function Home({ navigation }) {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          {/* <Text
-            style={{
-              textAlign: "center",
-              fontSize: 20,
-              color: "white",
-              top: 50,
-            }}
-          >
-            {currentPoints}{" "}
-            <Image
-              style={{ height: 20, width: 20 }}
-              source={require("../assets/asteroid.png")}
-            />{" "}
-            {currSpaceCoins}{" "}
-            <Image source={require("../assets/SpaceCoin.png")} /> {currScrolls}
-            <Image source={require("../assets/Scroll.png")} />
-          </Text> */}
           {gameOver ? (
             <View style={{ bottom: 100 }}>
               <TextInput
