@@ -12,8 +12,7 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
   const backdrop = entities.Backdrop.body;
   const menu = entities.Menu.body;
   const ground = entities.Ground.body;
-  const cloud1 = entities.cloud1.body;
-  const cloud2 = entities.cloud2.body;
+  const instructions = entities.Instructions.body;
 
   touches
     .filter((t) => t.type === "move")
@@ -67,13 +66,11 @@ const startGamePhysics = (entities, { touches, time, dispatch }) => {
     }
   }
 
-  Matter.Body.translate(start, { x: 0, y: 4 });
-  Matter.Body.translate(menu, { x: 0, y: 4 });
-  Matter.Body.translate(ground, { x: 0, y: 4 });
+  Matter.Body.translate(start, { x: -10, y: 4 });
+  Matter.Body.translate(menu, { x: 10, y: 4 });
+  Matter.Body.translate(ground, { x: 0, y: 6 });
   Matter.Body.translate(backdrop, { x: 0, y: 2 });
-  Matter.Body.translate(instructions, { x: 0, y: 4 });
-  Matter.Body.translate(cloud1, { x: -5, y: 4 });
-  Matter.Body.translate(cloud2, { x: 5, y: 4 });
+  Matter.Body.translate(instructions, { x: 0, y: 10 });
 
   Matter.Engine.update(engine, time.delta);
   return entities;

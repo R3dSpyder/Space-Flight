@@ -6,8 +6,9 @@ export const initialPhysics = (entities, { touches, time, dispatch }) => {
   const rocket = entities.Rocket.body;
   const start = entities.Start.body;
   const menu = entities.Menu.body;
-  const cloud1 = entities.cloud1.body;
-  const cloud2 = entities.cloud2.body;
+  const instructions = entities.Instructions.body;
+
+  World.remove(engine.world, instructions);
 
   touches
     .filter((t) => t.type === "move")
@@ -21,8 +22,6 @@ export const initialPhysics = (entities, { touches, time, dispatch }) => {
   if (Matter.Collision.collides(rocket, start)) {
     World.remove(engine.world, start);
     World.remove(engine.world, menu);
-    World.remove(engine.world, cloud1);
-    World.remove(engine.world, cloud2);
     dispatch({ type: "start_game" });
   }
   if (Matter.Collision.collides(rocket, menu)) {

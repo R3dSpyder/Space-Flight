@@ -20,16 +20,13 @@ const Instructions = (props) => {
         top: yBody,
         width: widthBody,
         height: heightBody,
+        zIndex: -1,
       }}
     >
       <Text style={{ color: "white", fontSize: 35, textAlign: "center" }}>
-        COLLECT SPACE COINS AND SCROLLS FOR PRIZES! {"\n"}
-        {"\n"}
         DRAG THE ROCKET TO DODGE THE ASTEROIDS!{"\n"}
         {"\n"}
-        CAPTAIN CARL HAS SENT YOU ON A MISSION! {"\n"}
-        {"\n"}
-        SPACE FLIGHT!! {"\n"}
+        COLLECT SPACE COINS AND SCROLLS FOR PRIZES! {"\n"}
         {"\n"}
       </Text>
     </View>

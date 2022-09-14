@@ -13,7 +13,6 @@ import Rocket0 from "./Rocket0";
 import Rocket1 from "./Rocket1";
 import Rocket2 from "./Rocket2";
 import Rocket3 from "./Rocket3";
-import Cloud from "./Cloud";
 import Instructions from "./Instructions";
 
 const windowHeight = Dimensions.get("window").height;
@@ -122,18 +121,8 @@ export default (rocket) => {
     ...scrolls,
     Instructions: Instructions(
       world,
-      { x: windowWidth / 2, y: -200 },
-      { height: 900, width: 300 }
-    ),
-    Cloud1: Cloud(
-      world,
-      { x: windowWidth * (1 / 3), y: 200 },
-      { height: 100, width: 100 }
-    ),
-    Cloud2: Cloud(
-      world,
-      { x: windowWidth * (2 / 3), y: 200 },
-      { height: 100, width: 100 }
+      { x: windowWidth / 2, y: 735 },
+      { height: 900, width: 350 }
     ),
   });
 

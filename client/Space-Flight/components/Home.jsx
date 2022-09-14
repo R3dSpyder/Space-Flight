@@ -47,9 +47,9 @@ export default function Home({ navigation }) {
               e.type === "start_game" ? setStartGame(true) : null;
               if (e.type === "game_over") {
                 gameOverFX();
+                setGameEngine(gameEngine.stop);
                 setGameOver(true);
                 setRunning(false);
-                setGameEngine(gameEngine.stop);
               }
               if (e.type === "visit_menu") {
                 setRunning(false);
