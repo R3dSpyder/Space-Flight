@@ -1,8 +1,8 @@
 import Matter from "matter-js";
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Text } from "react-native";
 
-const SpaceCoin = props => {
+const Start = props => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -22,32 +22,23 @@ const SpaceCoin = props => {
         height: heightBody,
       }}
     >
-      <Image
-        style={{
-          width: widthBody,
-          height: heightBody,
-          backgroundColor: "transparent",
-        }}
-        resizeMode="stretch"
-        source={require("../assets/SpaceCoin.png")}
-      ></Image>
+      <Text style={{ textAlign: "center", color: "white", fontSize: 25 }}>
+        START
+      </Text>
     </View>
   );
 };
 
 export default (world, pos, size) => {
-  const initialSpaceCoin = Matter.Bodies.rectangle(
-    pos.x,
-    pos.y,
-    size.width,
-    size.height,
-    { label: "SpaceCoin", inertia: Infinity, isStatic: true }
-  );
-  Matter.World.add(world, initialSpaceCoin);
+  const start = Matter.Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
+    label: "Start",
+    inertia: Infinity,
+  });
+  Matter.World.add(world, start);
 
   return {
-    body: initialSpaceCoin,
+    body: start,
     pos,
-    renderer: <SpaceCoin />,
+    renderer: <Start />,
   };
 };

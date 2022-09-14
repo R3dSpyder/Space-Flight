@@ -20,18 +20,17 @@ const Ground = props => {
         top: yBody,
         width: widthBody,
         height: heightBody,
-        // justifyContent: "center",
         alignItems: "center",
       }}
     >
-      {/* <Text
+      <Text
         style={{
           color: "white",
-          fontSize: 50,
+          fontSize: 30,
         }}
       >
-        Tap to launch
-      </Text> */}
+        DRAG ROCKET TO LAUNCH
+      </Text>
     </View>
   );
 };

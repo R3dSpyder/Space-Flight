@@ -1,14 +1,13 @@
 import { useContext } from "react";
 import { View, Text, ScrollView, StyleSheet, Image } from "react-native";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
 import { planetData } from "../api";
-import { UserContext } from "../context";
+import { UserContext } from "../Contexts/UserContext";
 
 const CollectedScrolls = () => {
   const { userInfo } = useContext(UserContext);
   const listOfPlanets = planetData["_3"];
 
-  const unlocked = (index) => {
+  const unlocked = index => {
     if (userInfo.scrolls >= index) {
       return true;
     } else {

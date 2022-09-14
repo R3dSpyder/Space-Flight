@@ -10,19 +10,12 @@ const Col = ({ numRows, children }) => {
 
 export default function LeaderBoard() {
   const [userData, setUserData] = useState([]);
-  const [signedInUser, setSignedInUser] = useState({});
 
   useEffect(() => {
-    getLeaderBoard().then((data) => {
+    getLeaderBoard().then(data => {
       const keys = Object.values(data);
-      console.log(data);
       setUserData(keys);
     });
-
-    // .sort((user1, user2) => user1.highScore - user2.highScore)
-    // .reverse()
-
-    setSignedInUser({ userName: "Penny", highScore: 51 });
   }, []);
 
   return (
@@ -100,7 +93,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     width: "100%",
-    // justifyContent:"space-around"
   },
   dataPlane: {
     display: "flex",
@@ -115,7 +107,7 @@ const styles = StyleSheet.create({
   },
   evenRowColor: {
     backgroundColor: "white",
-  }, // userScoreItems: { //   padding: "0 30px", //   flex: "2", // },
+  },
 
   "1col": {
     display: "flex",

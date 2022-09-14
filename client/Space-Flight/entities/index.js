@@ -1,26 +1,23 @@
 import Matter from "matter-js";
 import Ground from "./Ground";
-import Rocket0 from "./Rocket0";
 import { Dimensions } from "react-native";
-import Title from "./Title";
 import Wall from "./Wall";
-import Cloud from "./Cloud";
-import Start from "./Start-game";
+import Start from "./StartGame";
 import Backdrop from "./Backdrop";
 import Asteroid from "./Asteroid";
 import axisGenerator from "../Utils/axisGenerator";
-import SpaceCoin from "./Space_coins";
+import SpaceCoin from "./SpaceCoins";
 import Menu from "./Menu";
 import Scroll from "./Scrolls";
+import Rocket0 from "./Rocket0";
 import Rocket1 from "./Rocket1";
 import Rocket2 from "./Rocket2";
 import Rocket3 from "./Rocket3";
-// import Health from "./Health";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
-export default (rocket) => {
+export default rocket => {
   let engine = Matter.Engine.create({ enableSleeping: false });
 
   let world = engine.world;
@@ -61,40 +58,35 @@ export default (rocket) => {
       { height: 20, width: 20 }
     );
   }
-  // using return object and Object.assign lets use layer the entities correctly
   const returnObj = {
     physics: { engine, world },
     Backdrop: Backdrop(world, { x: 0, y: -19000 }, { height: 100, width: 200 }),
   };
 
-  if (rocket === 0) {
-    returnObj.Rocket = Rocket0(
-      world,
-      { x: windowWidth / 2, y: windowHeight - 125 },
-      { height: 75, width: 30 }
-    );
-  }
-  if (rocket === 1) {
-    returnObj.Rocket = Rocket1(
-      world,
-      { x: windowWidth / 2, y: windowHeight - 125 },
-      { height: 75, width: 30 }
-    );
-  }
-  if (rocket === 2) {
-    returnObj.Rocket = Rocket2(
-      world,
-      { x: windowWidth / 2, y: windowHeight - 125 },
-      { height: 75, width: 30 }
-    );
-  }
-  if (rocket === 3) {
-    returnObj.Rocket = Rocket3(
-      world,
-      { x: windowWidth / 2, y: windowHeight - 125 },
-      { height: 75, width: 30 }
-    );
-  }
+  rocket === 0
+    ? (returnObj.Rocket = Rocket0(
+        world,
+        { x: windowWidth / 2, y: windowHeight - 125 },
+        { height: 75, width: 30 }
+      ))
+    : rocket === 1
+    ? (returnObj.Rocket = Rocket1(
+        world,
+        { x: windowWidth / 2, y: windowHeight - 125 },
+        { height: 75, width: 30 }
+      ))
+    : rocket === 2
+    ? (returnObj.Rocket = Rocket2(
+        world,
+        { x: windowWidth / 2, y: windowHeight - 125 },
+        { height: 75, width: 30 }
+      ))
+    : (returnObj.Rocket = Rocket3(
+        world,
+        { x: windowWidth / 2, y: windowHeight - 125 },
+        { height: 75, width: 30 }
+      ));
+
   Object.assign(returnObj, {
     Ground: Ground(
       world,

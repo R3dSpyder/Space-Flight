@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Image } from "react-native";
 
-const Health = (props) => {
+const SpaceCoin = props => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -29,31 +29,25 @@ const Health = (props) => {
           backgroundColor: "transparent",
         }}
         resizeMode="stretch"
-        source={require("../assets/rocket.png")}
+        source={require("../assets/space-coin.png")}
       ></Image>
     </View>
   );
 };
 
 export default (world, pos, size) => {
-  const health = Matter.Bodies.rectangle(
+  const initialSpaceCoin = Matter.Bodies.rectangle(
     pos.x,
     pos.y,
     size.width,
     size.height,
-    { label: "Health", inertia: Infinity }
+    { label: "SpaceCoin", inertia: Infinity, isStatic: true }
   );
-  //stops the health rockets from colliding with any other objects
-  health.collisionFilter = {
-    group: -1,
-    category: 2,
-    mask: 0,
-  };
-  Matter.World.add(world, health);
+  Matter.World.add(world, initialSpaceCoin);
 
   return {
-    body: health,
+    body: initialSpaceCoin,
     pos,
-    renderer: <Health />,
+    renderer: <SpaceCoin />,
   };
 };
