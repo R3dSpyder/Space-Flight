@@ -8,6 +8,8 @@ export const Physics = (entities, { touches, time, dispatch }) => {
   const start = entities.Start.body;
   const menu = entities.Menu.body;
   const asteroid = entities.Asteroid1.body;
+  const instructions = entities.Instructions.body;
+
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
 
@@ -25,9 +27,10 @@ export const Physics = (entities, { touches, time, dispatch }) => {
     dispatch({ type: "start_game" });
   }
   if (Matter.Collision.collides(rocket, menu)) {
-    World.remove(engine.world, start);
+    World.remove(engine.world, menu);
     dispatch({ type: "visit_menu" });
   }
+  World.remove(engine.world, instructions);
 
   Matter.Body.rotate(asteroid, 0.25);
   Matter.Engine.update(engine, time.delta);

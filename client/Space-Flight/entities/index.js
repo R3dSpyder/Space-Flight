@@ -15,7 +15,7 @@ import Scroll from "./Scrolls";
 import Rocket1 from "./Rocket1";
 import Rocket2 from "./Rocket2";
 import Rocket3 from "./Rocket3";
-// import Health from "./Health";
+import Instructions from "./Instructions";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -126,6 +126,11 @@ export default (rocket) => {
     ...asteroids,
     ...spaceCoins,
     ...scrolls,
+    Instructions: Instructions(
+      world,
+      { x: windowWidth / 2, y: -200 },
+      { height: 900, width: 300 }
+    ),
   });
 
   return returnObj;

@@ -15,7 +15,7 @@ export default function LeaderBoard() {
   useEffect(() => {
     getLeaderBoard().then((data) => {
       const keys = Object.values(data);
-      console.log(data);
+
       setUserData(keys);
     });
 
