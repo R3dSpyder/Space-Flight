@@ -101,16 +101,9 @@ const RocketSelector = () => {
               <Text style={{ color: "white", left: 50, fontSize: 50 }}>→</Text>
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              backgroundColor: "black",
-            }}
-          >
+          <View style={{ flexDirection: "row", bottom: 60 }}>
             <TouchableOpacity onPress={setRocket}>
-              <Text style={{ color: "white", bottom: 100, fontSize: 50 }}>
-                SELECT
-              </Text>
+              <Text style={{ color: "white", fontSize: 50 }}>SELECT</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
