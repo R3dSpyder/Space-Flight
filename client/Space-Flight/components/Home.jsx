@@ -37,13 +37,13 @@ export default function Home({ navigation }) {
       {running ? (
         <>
           <GameEngine
-            ref={ref => {
+            ref={(ref) => {
               setGameEngine(ref);
             }}
             systems={[!startGame ? initialPhysics : startGamePhysics]}
             entities={entities(userInfo.rocketSelected)}
             running={running}
-            onEvent={e => {
+            onEvent={(e) => {
               e.type === "start_game" ? setStartGame(true) : null;
               if (e.type === "game_over") {
                 gameOverFX();
@@ -61,13 +61,13 @@ export default function Home({ navigation }) {
                 ? setCurrentPoints(currentPoints + 100)
                 : e.type === "add_SpaceCoin"
                 ? collectFX() &&
-                  setUserInfo(current => ({
+                  setUserInfo((current) => ({
                     ...current,
                     coins: userInfo.coins + 1,
                   }))
                 : e.type === "add_Scroll"
                 ? collectFX() &&
-                  setUserInfo(current => ({
+                  setUserInfo((current) => ({
                     ...current,
                     scrolls: userInfo.scrolls + 1,
                   }))
@@ -128,7 +128,7 @@ export default function Home({ navigation }) {
                 placeholder="INPUT NAME FOR LEADERBOARD"
                 placeholderTextColor={"grey"}
                 style={{ fontSize: 20, color: "white", fontWeight: "bold" }}
-                onChangeText={text => {
+                onChangeText={(text) => {
                   setCurrName(text);
                 }}
               />
@@ -147,7 +147,6 @@ export default function Home({ navigation }) {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: 30,
-                bottom: 20,
               }}
             >
               RESTART GAME
@@ -163,7 +162,7 @@ export default function Home({ navigation }) {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: 30,
-                bottom: 20,
+                top: 10,
               }}
             >
               LEADERBOARD
@@ -180,8 +179,7 @@ export default function Home({ navigation }) {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: 30,
-                top: 0,
-                bottom: 20,
+                top: 20,
               }}
             >
               COLLECTED SCROLLS
@@ -198,7 +196,7 @@ export default function Home({ navigation }) {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: 30,
-                top: 15,
+                top: 30,
               }}
             >
               ROCKET SELECTOR
