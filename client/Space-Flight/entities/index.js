@@ -88,7 +88,7 @@ export default (rocket) => {
       { height: 75, width: 30 }
     );
   }
-  if (rocket === 2) {
+  if (rocket === 3) {
     returnObj.Rocket = Rocket3(
       world,
       { x: windowWidth / 2, y: windowHeight - 125 },
