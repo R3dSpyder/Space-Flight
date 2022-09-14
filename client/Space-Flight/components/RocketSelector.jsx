@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import {
   Text,
@@ -8,7 +8,7 @@ import {
   ImageBackground,
   Dimensions,
 } from "react-native";
-import { UserContext } from "../context";
+import { UserContext } from "../Contexts/UserContext";
 import * as Haptics from "expo-haptics";
 
 const RocketSelector = () => {
@@ -23,13 +23,13 @@ const RocketSelector = () => {
 
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
-  // style button and provide visual feedback
-  const setRocket = (e) => {
+
+  const setRocket = e => {
     e.preventDefault();
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
 
-    setUserInfo((current) => ({
+    setUserInfo(current => ({
       ...current,
       rocketSelected: index,
     }));
@@ -47,7 +47,6 @@ const RocketSelector = () => {
       >
         <ImageBackground
           source={require("../assets/stars.jpg")}
-          // resizeMode="cover"
           style={{
             height: windowHeight,
             width: windowWidth,

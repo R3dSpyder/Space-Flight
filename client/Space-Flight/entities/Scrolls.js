@@ -29,7 +29,7 @@ const Scroll = props => {
           backgroundColor: "transparent",
         }}
         resizeMode="stretch"
-        source={require("../assets/Scroll.png")}
+        source={require("../assets/scroll.png")}
       ></Image>
     </View>
   );

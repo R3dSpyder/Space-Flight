@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Image } from "react-native";
 
-const Asteroid = (props) => {
+const Asteroid = props => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -29,7 +29,7 @@ const Asteroid = (props) => {
           backgroundColor: "transparent",
         }}
         resizeMode="stretch"
-        source={require("../assets/asteroidnew.png")}
+        source={require("../assets/asteroid.png")}
       ></Image>
     </View>
   );

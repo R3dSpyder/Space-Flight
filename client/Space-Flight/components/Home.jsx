@@ -9,12 +9,12 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { GameEngine } from "react-native-game-engine";
-import { Physics } from "../physics/physics.js";
+import { initialPhysics } from "../physics/initialPhysics.js";
 import entities from "../entities/index.js";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import startGamePhysics from "../physics/startGamePhysics.js";
-import { gameOverFX, collectFX, inGame } from "../sound.js";
-import { UserContext } from "../context.js";
+import { gameOverFX, collectFX } from "../sound.js";
+import { UserContext } from "../Contexts/UserContext.js";
 import { postScore } from "../api.js";
 
 export default function Home({ navigation }) {
@@ -22,7 +22,6 @@ export default function Home({ navigation }) {
   const [startGame, setStartGame] = useState(false);
   const [gameEngine, setGameEngine] = useState(null);
   const [currentPoints, setCurrentPoints] = useState(0);
-  const [currScrolls, setCurrentScrolls] = useState(0);
   const [currName, setCurrName] = useState("unknown");
   const [gameOver, setGameOver] = useState(false);
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -41,11 +40,11 @@ export default function Home({ navigation }) {
             ref={(ref) => {
               setGameEngine(ref);
             }}
-            systems={[!startGame ? Physics : startGamePhysics]}
+            systems={[!startGame ? initialPhysics : startGamePhysics]}
             entities={entities(userInfo.rocketSelected)}
             running={running}
             onEvent={(e) => {
-              e.type === "start_game" ? inGame() && setStartGame(true) : null;
+              e.type === "start_game" ? setStartGame(true) : null;
               if (e.type === "game_over") {
                 gameOverFX();
                 setGameOver(true);
@@ -59,7 +58,7 @@ export default function Home({ navigation }) {
               e.type === "leaderboard"
                 ? navigation.navigate("LeaderBoard")
                 : e.type === "points"
-                ? setCurrentPoints(currentPoints + 100) // add sound here hopefully
+                ? setCurrentPoints(currentPoints + 100)
                 : e.type === "add_SpaceCoin"
                 ? collectFX() &&
                   setUserInfo((current) => ({
@@ -104,7 +103,7 @@ export default function Home({ navigation }) {
           >
             {userInfo.coins}
           </Text>
-          <Image source={require("../assets/SpaceCoin.png")} />
+          <Image source={require("../assets/space-coin.png")} />
           <Text
             style={{
               textAlign: "left",
@@ -116,7 +115,7 @@ export default function Home({ navigation }) {
           >
             {userInfo.scrolls}
           </Text>
-          <Image source={require("../assets/Scroll.png")} />
+          <Image source={require("../assets/scroll.png")} />
         </>
       ) : null}
       {!running ? (
@@ -148,7 +147,6 @@ export default function Home({ navigation }) {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: 30,
-                bottom: 20,
               }}
             >
               RESTART GAME
@@ -164,7 +162,7 @@ export default function Home({ navigation }) {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: 30,
-                bottom: 10,
+                top: 10,
               }}
             >
               LEADERBOARD
@@ -181,7 +179,7 @@ export default function Home({ navigation }) {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: 30,
-                top: 5,
+                top: 20,
               }}
             >
               COLLECTED SCROLLS
@@ -198,7 +196,7 @@ export default function Home({ navigation }) {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: 30,
-                top: 5,
+                top: 30,
               }}
             >
               ROCKET SELECTOR
