@@ -171,7 +171,7 @@ export default function Home({ navigation }) {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("CollectedScrolls");
+              navigation.navigate("RocketSelector");
             }}
           >
             <Text
@@ -182,13 +182,12 @@ export default function Home({ navigation }) {
                 top: 20,
               }}
             >
-              COLLECTED SCROLLS
+              ROCKET SELECTOR
             </Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("RocketSelector");
+              navigation.navigate("CollectedScrolls");
             }}
           >
             <Text
@@ -199,7 +198,7 @@ export default function Home({ navigation }) {
                 top: 30,
               }}
             >
-              ROCKET SELECTOR
+              COLLECTED SCROLLS
             </Text>
           </TouchableOpacity>
         </View>
