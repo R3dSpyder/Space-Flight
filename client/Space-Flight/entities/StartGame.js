@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Text } from "react-native";
 
-const Start = props => {
+const Start = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -22,7 +22,7 @@ const Start = props => {
         height: heightBody,
       }}
     >
-      <Text style={{ textAlign: "center", color: "white", fontSize: 25 }}>
+      <Text style={{ textAlign: "center", color: "white", fontSize: 34 }}>
         START
       </Text>
     </View>

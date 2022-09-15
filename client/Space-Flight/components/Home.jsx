@@ -47,9 +47,9 @@ export default function Home({ navigation }) {
               e.type === "start_game" ? setStartGame(true) : null;
               if (e.type === "game_over") {
                 gameOverFX();
+                setGameEngine(gameEngine.stop);
                 setGameOver(true);
                 setRunning(false);
-                setGameEngine(gameEngine.stop);
               }
               if (e.type === "visit_menu") {
                 setRunning(false);
@@ -171,7 +171,7 @@ export default function Home({ navigation }) {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("CollectedScrolls");
+              navigation.navigate("RocketSelector");
             }}
           >
             <Text
@@ -182,13 +182,12 @@ export default function Home({ navigation }) {
                 top: 20,
               }}
             >
-              COLLECTED SCROLLS
+              ROCKET SELECTOR
             </Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("RocketSelector");
+              navigation.navigate("CollectedScrolls");
             }}
           >
             <Text
@@ -199,7 +198,7 @@ export default function Home({ navigation }) {
                 top: 30,
               }}
             >
-              ROCKET SELECTOR
+              COLLECTED SCROLLS
             </Text>
           </TouchableOpacity>
         </View>

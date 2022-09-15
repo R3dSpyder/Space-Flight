@@ -13,11 +13,12 @@ import Rocket0 from "./Rocket0";
 import Rocket1 from "./Rocket1";
 import Rocket2 from "./Rocket2";
 import Rocket3 from "./Rocket3";
+import Instructions from "./Instructions";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
-export default rocket => {
+export default (rocket) => {
   let engine = Matter.Engine.create({ enableSleeping: false });
 
   let world = engine.world;
@@ -108,16 +109,21 @@ export default rocket => {
     Start: Start(
       world,
       { x: windowWidth / 3, y: 200 },
-      { height: 100, width: 100 }
+      { height: 50, width: 100 }
     ),
     Menu: Menu(
       world,
       { x: windowWidth / 1.5, y: 200 },
-      { height: 100, width: 100 }
+      { height: 50, width: 100 }
     ),
     ...asteroids,
     ...spaceCoins,
     ...scrolls,
+    Instructions: Instructions(
+      world,
+      { x: windowWidth / 2, y: 735 },
+      { height: 900, width: 350 }
+    ),
   });
 
   return returnObj;

@@ -2,7 +2,7 @@ import Matter from "matter-js";
 import React from "react";
 import { View, Text } from "react-native";
 
-const Menu = (props) => {
+const Instructions = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -20,23 +20,35 @@ const Menu = (props) => {
         top: yBody,
         width: widthBody,
         height: heightBody,
+        zIndex: -1,
       }}
     >
-      <Text style={{ color: "white", fontSize: 34 }}>MENU</Text>
+      <Text style={{ color: "white", fontSize: 35, textAlign: "center" }}>
+        DRAG THE ROCKET TO DODGE THE ASTEROIDS!{"\n"}
+        {"\n"}
+        COLLECT SPACE COINS AND SCROLLS FOR PRIZES! {"\n"}
+        {"\n"}
+      </Text>
     </View>
   );
 };
 
 export default (world, pos, size) => {
-  const menu = Matter.Bodies.rectangle(pos.x, pos.y, size.width, size.height, {
-    label: "Menu",
-    inertia: Infinity,
-  });
-  Matter.World.add(world, menu);
+  const instructions = Matter.Bodies.rectangle(
+    pos.x,
+    pos.y,
+    size.width,
+    size.height,
+    {
+      label: "Instructions",
+      inertia: Infinity,
+    }
+  );
+  Matter.World.add(world, instructions);
 
   return {
-    body: menu,
+    body: instructions,
     pos,
-    renderer: <Menu />,
+    renderer: <Instructions />,
   };
 };

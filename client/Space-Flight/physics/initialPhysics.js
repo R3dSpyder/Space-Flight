@@ -6,11 +6,13 @@ export const initialPhysics = (entities, { touches, time, dispatch }) => {
   const rocket = entities.Rocket.body;
   const start = entities.Start.body;
   const menu = entities.Menu.body;
-  const asteroid = entities.Asteroid1.body;
+  const instructions = entities.Instructions.body;
+
+  World.remove(engine.world, instructions);
 
   touches
-    .filter(t => t.type === "move")
-    .forEach(t => {
+    .filter((t) => t.type === "move")
+    .forEach((t) => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       Matter.Body.setVelocity(rocket, {
         x: t.delta.pageX,

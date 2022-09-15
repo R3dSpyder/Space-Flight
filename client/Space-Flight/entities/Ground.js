@@ -1,8 +1,8 @@
 import Matter from "matter-js";
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 
-const Ground = props => {
+const Ground = (props) => {
   const widthBody = props.body.bounds.max.x - props.body.bounds.min.x;
   const heightBody = props.body.bounds.max.y - props.body.bounds.min.y;
 
@@ -22,16 +22,7 @@ const Ground = props => {
         height: heightBody,
         alignItems: "center",
       }}
-    >
-      <Text
-        style={{
-          color: "white",
-          fontSize: 30,
-        }}
-      >
-        DRAG ROCKET TO LAUNCH
-      </Text>
-    </View>
+    ></View>
   );
 };
 
