@@ -109,12 +109,12 @@ export default (rocket) => {
     Start: Start(
       world,
       { x: windowWidth / 3, y: 200 },
-      { height: 100, width: 100 }
+      { height: 50, width: 100 }
     ),
     Menu: Menu(
       world,
       { x: windowWidth / 1.5, y: 200 },
-      { height: 100, width: 100 }
+      { height: 50, width: 100 }
     ),
     ...asteroids,
     ...spaceCoins,
